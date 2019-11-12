@@ -1,0 +1,1850 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="ProcessTransaction" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:s1="clr-namespace:SuccessFactorsToolsLibrary;assembly=SuccessFactorsToolsLibrary" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ss="clr-namespace:System.Security;assembly=mscorlib" xmlns:ug="clr-namespace:UiPath.GSuite;assembly=UiPath.GSuite" xmlns:uga="clr-namespace:UiPath.GSuite.Activities;assembly=UiPath.GSuite.Activities" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_TransactionItem" Type="InArgument(sd:DataRow)" />
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_GoogleUsername" Type="InArgument(x:String)" />
+    <x:Property Name="in_GooglePassword" Type="InArgument(ss:SecureString)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>262.4,642.4</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+      <x:String>System.Globalization</x:String>
+      <x:String>System.Text.RegularExpressions</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>System.Net</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Description: In this file all other process specific files will be invoked. If an application exception occurs, the current transaction can be retried. If a BRE is thrown, the transaction will be skipped. Can be a flowchart or sequence. " DisplayName="ProcessTransaction" sap:VirtualizedContainerService.HintSize="222.4,562.4" sap2010:WorkflowViewState.IdRef="Sequence_138">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Sequence sap2010:Annotation.AnnotationText="Description: In this sequence, the hire is performed in SuccessFactors." DisplayName="Perform the Hire" sap:VirtualizedContainerService.HintSize="200,112.8" sap2010:WorkflowViewState.IdRef="Sequence_1">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="x:String" Name="tempHireURL" />
+      </Sequence.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Sequence sap2010:Annotation.AnnotationText="In this sequence steps 3A - 3D of the PDD are completed. " DisplayName="Navigate to Hire Recruit" sap:VirtualizedContainerService.HintSize="200,96.8" sap2010:WorkflowViewState.IdRef="Sequence_67">
+        <Sequence.Variables>
+          <Variable x:TypeArguments="x:Boolean" Name="tempErrorExists" />
+        </Sequence.Variables>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <Sequence DisplayName="Navigate to hire recruit" sap:VirtualizedContainerService.HintSize="200,52.8" sap2010:WorkflowViewState.IdRef="Sequence_121">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Assign sap:VirtualizedContainerService.HintSize="414.4,60" sap2010:WorkflowViewState.IdRef="Assign_14">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[tempHireURL]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[String.Concat(in_Config("URL_HireIntoSuccessFactors_PT1").ToString, in_TransactionItem(in_Config("Column_JobReqID").ToString).ToString, in_Config("URL_HireIntoSuccessFactors_PT2").ToString, in_TransactionItem(in_Config("Column_CandidateID").ToString).ToString, in_Config("URL_HireIntoSuccessFactors_PT3").ToString,in_TransactionItem(in_Config("Column_ApplicationID").ToString).ToString, in_Config("URL_HireIntoSuccessFactors_PT4").ToString)]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Attach Browser 'Google Chrome'" sap:VirtualizedContainerService.HintSize="414.4,332" sap2010:WorkflowViewState.IdRef="BrowserScope_3" InformativeScreenshot="7da3d7b6c7d5fd8e8f125f99477ee919" Selector="&lt;html app='chrome.exe' title='*' /&gt;">
+            <ui:BrowserScope.Body>
+              <ActivityAction x:TypeArguments="x:Object">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                </ActivityAction.Argument>
+                <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="336.8,184.8" sap2010:WorkflowViewState.IdRef="Sequence_66">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="314.4,60" sap2010:WorkflowViewState.IdRef="NavigateTo_3" Url="[tempHireURL]" />
+                </Sequence>
+              </ActivityAction>
+            </ui:BrowserScope.Body>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:BrowserScope>
+        </Sequence>
+        <Pick sap2010:Annotation.AnnotationText="Simultaneously wait for the page to load or an error to occur" sap:VirtualizedContainerService.HintSize="200,112.8" sap2010:WorkflowViewState.IdRef="Pick_1">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <PickBranch sap:VirtualizedContainerService.HintSize="344.8,751.2" sap2010:WorkflowViewState.IdRef="PickBranch_1">
+            <PickBranch.Variables>
+              <Variable x:TypeArguments="x:Boolean" Name="tempPageLoaded" />
+            </PickBranch.Variables>
+            <PickBranch.Trigger>
+              <ui:UiElementExists DisplayName="Element Exists 'Identify'" Exists="[tempPageLoaded]" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="UiElementExists_14">
+                <ui:UiElementExists.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="e5fde8d075fd92b2aa652bdfb616c9ff" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl id='__title*-inner' tag='SPAN' aaname='Identity' /&gt;" TimeoutMS="[Convert.ToInt32(in_Config(&quot;TimeoutMedium&quot;).ToString)]" WaitForReady="COMPLETE" />
+                </ui:UiElementExists.Target>
+              </ui:UiElementExists>
+            </PickBranch.Trigger>
+          </PickBranch>
+          <PickBranch sap:VirtualizedContainerService.HintSize="494.4,751.2" sap2010:WorkflowViewState.IdRef="PickBranch_2">
+            <PickBranch.Trigger>
+              <ui:UiElementExists DisplayName="Element Exists 'Error'" Exists="[tempErrorExists]" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="UiElementExists_13">
+                <ui:UiElementExists.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="42c356f3a0d4327ec3f38314e59f8a44" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl id='__mbox*-header-BarPH' tag='DIV' innertext='Error' /&gt;" TimeoutMS="[Convert.ToInt32(in_Config(&quot;TimeoutMedium&quot;).ToString)]" WaitForReady="COMPLETE" />
+                </ui:UiElementExists.Target>
+              </ui:UiElementExists>
+            </PickBranch.Trigger>
+            <If Condition="[tempErrorExists = True]" sap:VirtualizedContainerService.HintSize="464,444" sap2010:WorkflowViewState.IdRef="If_35">
+              <If.Then>
+                <Sequence sap:VirtualizedContainerService.HintSize="336.8,294.4" sap2010:WorkflowViewState.IdRef="Sequence_113">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Ok'" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="Click_47" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+                    <ui:Click.CursorPosition>
+                      <ui:CursorPosition Position="Center">
+                        <ui:CursorPosition.OffsetX>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetX>
+                        <ui:CursorPosition.OffsetY>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetY>
+                      </ui:CursorPosition>
+                    </ui:Click.CursorPosition>
+                    <ui:Click.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="d450870f0354398fddd1d291f25c2945" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl id='__mbox-btn-*-inner' tag='SPAN' innertext='OK' /&gt;" WaitForReady="COMPLETE" />
+                    </ui:Click.Target>
+                  </ui:Click>
+                  <Throw Exception="[new BusinessRuleException(&quot;Team Member Already Hired / Team Member Cannot Be Located&quot;)]" sap:VirtualizedContainerService.HintSize="314.4,22.4" sap2010:WorkflowViewState.IdRef="Throw_20" />
+                </Sequence>
+              </If.Then>
+            </If>
+          </PickBranch>
+        </Pick>
+      </Sequence>
+      <Sequence sap2010:Annotation.AnnotationText="In this sequence steps 3E - 3M of the PDD are completed. " DisplayName="Fill in Identity" sap:VirtualizedContainerService.HintSize="336.8,892.8" sap2010:WorkflowViewState.IdRef="Sequence_76">
+        <Sequence.Variables>
+          <Variable x:TypeArguments="x:Boolean" Name="tempDuplicateCheck" />
+          <Variable x:TypeArguments="x:Boolean" Name="tempErrorsExist" />
+        </Sequence.Variables>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <Sequence DisplayName="Update Access to EC Date" sap:VirtualizedContainerService.HintSize="486.4,830.4" sap2010:WorkflowViewState.IdRef="Sequence_69">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="s:DateTime" Name="tempFirstDayAtWork" />
+          </Sequence.Variables>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Assign sap:VirtualizedContainerService.HintSize="464,60" sap2010:WorkflowViewState.IdRef="Assign_32">
+            <Assign.To>
+              <OutArgument x:TypeArguments="s:DateTime">[tempFirstDayAtWork]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="s:DateTime">[DateTime.ParseExact(in_TransactionItem(in_Config("Column_FirstDayAtWork").ToString).ToString, "d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture)]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <If Condition="[tempFirstDayAtWork &lt; Datetime.Today]" DisplayName="If the First Day At Work value is less than today, then update that field" sap:VirtualizedContainerService.HintSize="464,605.6" sap2010:WorkflowViewState.IdRef="If_20">
+            <If.Then>
+              <Sequence sap:VirtualizedContainerService.HintSize="336.8,456" sap2010:WorkflowViewState.IdRef="Sequence_68">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="True" DisplayName="Type Into 'Access to Employee Central'" EmptyField="True" sap:VirtualizedContainerService.HintSize="314.4,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_31" SendWindowMessages="False" SimulateType="False" Text="[in_TransactionItem(in_Config(&quot;Column_FirstDayAtWork&quot;).ToString).ToString]">
+                  <ui:TypeInto.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="b297a579a412d992babeb4f0d18319e3" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Access to Employee Central' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__picker*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+                  </ui:TypeInto.Target>
+                </ui:TypeInto>
+                <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Send Hotkey 'Tab'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,156" sap2010:WorkflowViewState.IdRef="SendHotkey_44" Key="tab" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+                  <ui:SendHotkey.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="b5c6fd544bddaaa65f0ed7238bcb7e5a" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Access to Employee Central' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__picker*-content' tag='DIV' /&gt;" WaitForReady="INTERACTIVE" />
+                  </ui:SendHotkey.Target>
+                </ui:SendHotkey>
+              </Sequence>
+            </If.Then>
+          </If>
+        </Sequence>
+        <Sequence DisplayName="Update Company" sap:VirtualizedContainerService.HintSize="314.4,52.8" sap2010:WorkflowViewState.IdRef="Sequence_70">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Company'" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="Click_25" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+            <ui:Click.CursorPosition>
+              <ui:CursorPosition Position="Center">
+                <ui:CursorPosition.OffsetX>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:CursorPosition.OffsetX>
+                <ui:CursorPosition.OffsetY>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:CursorPosition.OffsetY>
+              </ui:CursorPosition>
+            </ui:Click.CursorPosition>
+            <ui:Click.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="94681e740f2a516449f2955580d89f01" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Company' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-content' tag='DIV' innertext='Select Options' /&gt;" WaitForReady="INTERACTIVE" />
+            </ui:Click.Target>
+          </ui:Click>
+          <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="True" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Type Into 'Company' the Value '1000'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_32" SendWindowMessages="False" SimulateType="False" Text="1000">
+            <ui:TypeInto.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="87defef3da7f3310a806e8eae4c3230f" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Company' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-content' tag='DIV' innertext='Select Options' /&gt;" WaitForReady="COMPLETE" />
+            </ui:TypeInto.Target>
+          </ui:TypeInto>
+          <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Send Hotkey 'Down'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,156" sap2010:WorkflowViewState.IdRef="SendHotkey_45" Key="down" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+            <ui:SendHotkey.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="413606d7fa8eceb761531667ad804a29" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Company' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-content' tag='DIV' innertext='Select Options' /&gt;" WaitForReady="COMPLETE" />
+            </ui:SendHotkey.Target>
+          </ui:SendHotkey>
+          <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Send Hotkey 'Enter'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,156" sap2010:WorkflowViewState.IdRef="SendHotkey_46" Key="enter" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+            <ui:SendHotkey.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="413606d7fa8eceb761531667ad804a29" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Company' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-content' tag='DIV' innertext='Select Options' /&gt;" WaitForReady="COMPLETE" />
+            </ui:SendHotkey.Target>
+          </ui:SendHotkey>
+        </Sequence>
+        <Sequence DisplayName="Update Event Reason" sap:VirtualizedContainerService.HintSize="314.4,52.8" sap2010:WorkflowViewState.IdRef="Sequence_71">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="True" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Type Into 'Event Reason' the value 'HIRNEW'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_33" SendWindowMessages="False" SimulateType="False" Text="HIRNEW">
+            <ui:TypeInto.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="ee3405cac03cd7132b812c00f040dab3" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Event Reason' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-content' tag='DIV' innertext='Select Options' /&gt;" WaitForReady="COMPLETE" />
+            </ui:TypeInto.Target>
+          </ui:TypeInto>
+          <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Send Hotkey 'Down'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,156" sap2010:WorkflowViewState.IdRef="SendHotkey_47" Key="down" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+            <ui:SendHotkey.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="f003904acb1060511750a513838017b9" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Event Reason' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-content' tag='DIV' innertext='Select Options' /&gt;" WaitForReady="COMPLETE" />
+            </ui:SendHotkey.Target>
+          </ui:SendHotkey>
+          <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Send Hotkey 'Down'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,156" sap2010:WorkflowViewState.IdRef="SendHotkey_48" Key="enter" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+            <ui:SendHotkey.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="f003904acb1060511750a513838017b9" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Event Reason' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-content' tag='DIV' innertext='Select Options' /&gt;" WaitForReady="COMPLETE" />
+            </ui:SendHotkey.Target>
+          </ui:SendHotkey>
+        </Sequence>
+        <Sequence DisplayName="Validate D.O.B" sap:VirtualizedContainerService.HintSize="314.4,52.8" sap2010:WorkflowViewState.IdRef="Sequence_72">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="s:DateTime" Name="tempDOB" />
+            <Variable x:TypeArguments="x:TimeSpan" Name="tempAge" />
+          </Sequence.Variables>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Assign sap:VirtualizedContainerService.HintSize="464,60" sap2010:WorkflowViewState.IdRef="Assign_15">
+            <Assign.To>
+              <OutArgument x:TypeArguments="s:DateTime">[tempDOB]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="s:DateTime">[DateTime.ParseExact(in_TransactionItem(in_Config("Column_DateOfBirth").ToString).ToString, "d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture)]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign sap:VirtualizedContainerService.HintSize="464,60" sap2010:WorkflowViewState.IdRef="Assign_16">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:TimeSpan">[tempAge]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:TimeSpan">[DateTime.Today - tempDOB]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <If Condition="[tempAge.Days &lt; 4380 OR tempAge.Days &gt; 31025]" DisplayName="If &lt; 12 Or &gt; 85 then throw error" sap:VirtualizedContainerService.HintSize="464,209.6" sap2010:WorkflowViewState.IdRef="If_21">
+            <If.Then>
+              <Throw Exception="[new BusinessRuleException(&quot;Check D.O.B is Potentially Invalid&quot;)]" sap:VirtualizedContainerService.HintSize="200,22.4" sap2010:WorkflowViewState.IdRef="Throw_11" />
+            </If.Then>
+          </If>
+        </Sequence>
+        <Sequence DisplayName="Update Name" sap:VirtualizedContainerService.HintSize="314.4,52.8" sap2010:WorkflowViewState.IdRef="Sequence_73">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="x:String" Name="tempFirstName" />
+            <Variable x:TypeArguments="x:String" Name="tempMiddleName" />
+            <Variable x:TypeArguments="x:String" Name="tempSurname" />
+          </Sequence.Variables>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Assign DisplayName="Remove Illegal Characters from First Name" sap:VirtualizedContainerService.HintSize="314.4,60" sap2010:WorkflowViewState.IdRef="Assign_29">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[tempFirstName]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[System.Text.RegularExpressions.Regex.Replace(StrConv(in_TransactionItem(in_Config("Column_FirstName").ToString).ToString, VbStrConv.ProperCase), "[^\w\s\d\\\-\']", String.Empty)]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign DisplayName="Remove Illegal Characters from Middle Name" sap:VirtualizedContainerService.HintSize="314.4,60" sap2010:WorkflowViewState.IdRef="Assign_30">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[tempMiddleName]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[System.Text.RegularExpressions.Regex.Replace(StrConv(in_TransactionItem(in_Config("Column_MiddleName").ToString).ToString, VbStrConv.ProperCase), "[^\w\s\d\\\-\']", String.Empty)]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign DisplayName="Remove Illegal Characters from Surname" sap:VirtualizedContainerService.HintSize="314.4,60" sap2010:WorkflowViewState.IdRef="Assign_31">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[tempSurname]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[System.Text.RegularExpressions.Regex.Replace(StrConv(in_TransactionItem(in_Config("Column_Surname").ToString).ToString, VbStrConv.ProperCase), "[^\w\s\d\\\-\']", String.Empty)]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="True" DisplayName="Type Into 'First Name'" EmptyField="True" sap:VirtualizedContainerService.HintSize="314.4,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_34" SendWindowMessages="True" SimulateType="False" Text="[tempFirstName]">
+            <ui:TypeInto.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="692c3659dce4c6f3a5768051595f72d2" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='First Name' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__input*-inner' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+            </ui:TypeInto.Target>
+          </ui:TypeInto>
+          <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Send Hotkey 'Tab'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,156" sap2010:WorkflowViewState.IdRef="SendHotkey_49" Key="tab" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+            <ui:SendHotkey.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="ebb37c2c679533d18360199432f0d9b7" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='First Name' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__input*-inner' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+            </ui:SendHotkey.Target>
+          </ui:SendHotkey>
+          <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="True" DisplayName="Type Into 'Middle Name'" EmptyField="True" sap:VirtualizedContainerService.HintSize="314.4,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_35" SendWindowMessages="True" SimulateType="False" Text="[tempMiddleName]">
+            <ui:TypeInto.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="59395af4039683da6afd6ef663eab255" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Middle Name' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__input*-inner' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+            </ui:TypeInto.Target>
+          </ui:TypeInto>
+          <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Send Hotkey 'Tab'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,156" sap2010:WorkflowViewState.IdRef="SendHotkey_50" Key="tab" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+            <ui:SendHotkey.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="451baf8bff21938825abbc03f7ca4943" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Middle Name' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__input*-inner' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+            </ui:SendHotkey.Target>
+          </ui:SendHotkey>
+          <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="True" DisplayName="Type Into 'Surname'" EmptyField="True" sap:VirtualizedContainerService.HintSize="314.4,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_36" SendWindowMessages="True" SimulateType="False" Text="[tempSurname]">
+            <ui:TypeInto.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="d60ba6c6c13cacd11e258b895cf8441e" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Surname' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__input*-inner' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+            </ui:TypeInto.Target>
+          </ui:TypeInto>
+          <ui:SendHotkey DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayBefore="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Send Hotkey 'Surname'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,156" sap2010:WorkflowViewState.IdRef="SendHotkey_51" Key="tab" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+            <ui:SendHotkey.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="5d7bbca83ea006858ad36b261995fb1b" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Surname' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__input*-inner' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+            </ui:SendHotkey.Target>
+          </ui:SendHotkey>
+          <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="True" DisplayName="Clear 'Previous Employee ID'" EmptyField="True" sap:VirtualizedContainerService.HintSize="314.4,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_37" SendWindowMessages="True" SimulateType="False">
+            <ui:TypeInto.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="567a4fbf92d6023ee7535b07384ffe02" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Previous Employee ID' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__input*-inner' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+            </ui:TypeInto.Target>
+            <ui:TypeInto.Text>
+              <InArgument x:TypeArguments="x:String">
+                <Literal x:TypeArguments="x:String" Value="" />
+              </InArgument>
+            </ui:TypeInto.Text>
+          </ui:TypeInto>
+        </Sequence>
+        <ui:Click DelayBefore="{x:Null}" ClickType="CLICK_SINGLE" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Click 'Continue'" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="Click_26" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+          <ui:Click.CursorPosition>
+            <ui:CursorPosition Position="Center">
+              <ui:CursorPosition.OffsetX>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:CursorPosition.OffsetX>
+              <ui:CursorPosition.OffsetY>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:CursorPosition.OffsetY>
+            </ui:CursorPosition>
+          </ui:Click.CursorPosition>
+          <ui:Click.Target>
+            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="41d1e82efc40e4c84cdc654423e1d238" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl innertext='Continue' id='__button*-inner' tag='SPAN' /&gt;" WaitForReady="COMPLETE" />
+          </ui:Click.Target>
+        </ui:Click>
+        <Pick sap2010:Annotation.AnnotationText="Simultaneously wait for the page to load or an error to occur" sap:VirtualizedContainerService.HintSize="314.4,112.8" sap2010:WorkflowViewState.IdRef="Pick_2">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <PickBranch sap:VirtualizedContainerService.HintSize="344.8,601.6" sap2010:WorkflowViewState.IdRef="PickBranch_3">
+            <PickBranch.Trigger>
+              <ui:UiElementExists Exists="{x:Null}" DisplayName="Element Exists 'Personal Information'" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="UiElementExists_15">
+                <ui:UiElementExists.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="0b8f62e0d8c33414978e1ff66af0d494" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl id='__label*-bdi' tag='BDI' aaname='Gender' parentname='content' /&gt;" TimeoutMS="[Convert.ToInt32(in_Config(&quot;DelayLong&quot;).ToString)]" WaitForReady="COMPLETE" />
+                </ui:UiElementExists.Target>
+              </ui:UiElementExists>
+            </PickBranch.Trigger>
+          </PickBranch>
+          <PickBranch sap:VirtualizedContainerService.HintSize="344.8,601.6" sap2010:WorkflowViewState.IdRef="PickBranch_4">
+            <PickBranch.Trigger>
+              <ui:UiElementExists DisplayName="Element Exists 'Error'" Exists="[tempErrorsExist]" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="UiElementExists_7">
+                <ui:UiElementExists.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="156e73286b909bcc7693ff50e2db20e1" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl id='__mbox*-title-inner' tag='SPAN' aaname='*rror*' /&gt;" TimeoutMS="[Convert.ToInt32(in_Config(&quot;DelayLong&quot;).ToString)]" WaitForReady="COMPLETE" />
+                </ui:UiElementExists.Target>
+              </ui:UiElementExists>
+            </PickBranch.Trigger>
+            <Throw Exception="[new BusinessRuleException(&quot;Missing Information&quot;)]" sap:VirtualizedContainerService.HintSize="200,22.4" sap2010:WorkflowViewState.IdRef="Throw_12" />
+          </PickBranch>
+          <PickBranch sap:VirtualizedContainerService.HintSize="367.2,601.6" sap2010:WorkflowViewState.IdRef="PickBranch_5">
+            <PickBranch.Trigger>
+              <ui:UiElementExists DisplayName="Element Exists 'Duplicate Check'" Exists="[tempDuplicateCheck]" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="UiElementExists_16">
+                <ui:UiElementExists.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="e4963f6468ef69324e198a046c7bc500" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl innertext='*Duplicate Check*' id='UserSearchResult--userSearchDialog-title-inner' tag='SPAN' /&gt;" TimeoutMS="[Convert.ToInt32(in_Config(&quot;DelayLong&quot;).ToString)]" WaitForReady="COMPLETE" />
+                </ui:UiElementExists.Target>
+              </ui:UiElementExists>
+            </PickBranch.Trigger>
+            <Sequence sap:VirtualizedContainerService.HintSize="336.8,294.4" sap2010:WorkflowViewState.IdRef="Sequence_117">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" ContinueOnError="True" DisplayName="Click 'Ignore Matches'" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="Click_48" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+                <ui:Click.CursorPosition>
+                  <ui:CursorPosition Position="Center">
+                    <ui:CursorPosition.OffsetX>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:CursorPosition.OffsetX>
+                    <ui:CursorPosition.OffsetY>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:CursorPosition.OffsetY>
+                  </ui:CursorPosition>
+                </ui:Click.CursorPosition>
+                <ui:Click.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="42ffdc1d6cf3748da5ad0fb4dba231db" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl innertext='Ignore Matches' id='__button*-inner' tag='SPAN' /&gt;" WaitForReady="COMPLETE" />
+                </ui:Click.Target>
+              </ui:Click>
+              <Throw Exception="[new BusinessRuleException(&quot;The Candidate is potentially a duplicate.&quot;)]" sap:VirtualizedContainerService.HintSize="314.4,22.4" sap2010:WorkflowViewState.IdRef="Throw_21" />
+            </Sequence>
+          </PickBranch>
+        </Pick>
+      </Sequence>
+      <Sequence sap2010:Annotation.AnnotationText="In this sequence steps 3N - 3U of the PDD are completed. " DisplayName="Personal Information" sap:VirtualizedContainerService.HintSize="200,96.8" sap2010:WorkflowViewState.IdRef="Sequence_83">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <Sequence DisplayName="Update Email Address" sap:VirtualizedContainerService.HintSize="314.4,52.8" sap2010:WorkflowViewState.IdRef="Sequence_77">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="True" DisplayName="Type Into 'Email Address'" EmptyField="True" sap:VirtualizedContainerService.HintSize="314.4,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_38" SendWindowMessages="True" SimulateType="False" Text="[in_TransactionItem(in_Config(&quot;Column_EmailAddress&quot;).ToString).ToString]">
+            <ui:TypeInto.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="91ab280d4ee1aadf0a5753e4b48770fd" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl id='__input*-inner' tag='INPUT' colName='Email Address' tableCol='3' tableRow='2' /&gt;" WaitForReady="COMPLETE" />
+            </ui:TypeInto.Target>
+          </ui:TypeInto>
+          <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Send Hotkey 'Tab'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,156" sap2010:WorkflowViewState.IdRef="SendHotkey_52" Key="tab" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+            <ui:SendHotkey.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="df1209637b27c9cb985731884c4faf1b" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl id='__input*-inner' tag='INPUT' colName='Email Address' tableCol='3' tableRow='2' /&gt;" WaitForReady="COMPLETE" />
+            </ui:SendHotkey.Target>
+          </ui:SendHotkey>
+        </Sequence>
+        <Sequence DisplayName="Update Phone Number" sap:VirtualizedContainerService.HintSize="336.8,1012.8" sap2010:WorkflowViewState.IdRef="Sequence_80">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="x:String" Name="tempPhoneNumber" />
+          </Sequence.Variables>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Sequence DisplayName="Select Phone Type" sap:VirtualizedContainerService.HintSize="336.8,799.2" sap2010:WorkflowViewState.IdRef="Sequence_78">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Phone Type'" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="Click_50" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+              <ui:Click.CursorPosition>
+                <ui:CursorPosition Position="Center">
+                  <ui:CursorPosition.OffsetX>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:CursorPosition.OffsetX>
+                  <ui:CursorPosition.OffsetY>
+                    <InArgument x:TypeArguments="x:Int32" />
+                  </ui:CursorPosition.OffsetY>
+                </ui:CursorPosition>
+              </ui:Click.CursorPosition>
+              <ui:Click.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="e00ff593145a8fa538a14db4d87be1d2" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Phone Type' tag='BDI' /&gt;&lt;nav up='6' /&gt;&lt;webctrl id='__box*-content' tag='DIV' innertext='Select Options' /&gt;" WaitForReady="COMPLETE" />
+              </ui:Click.Target>
+            </ui:Click>
+            <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="True" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Type Into 'Phone Type' the value 'Mobile'" EmptyField="True" sap:VirtualizedContainerService.HintSize="314.4,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_39" SendWindowMessages="False" SimulateType="False" Text="Mobile">
+              <ui:TypeInto.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="6ef3452bd6596861ede6997b55e35896" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Phone Type' tag='BDI' /&gt;&lt;nav up='6' /&gt;&lt;webctrl id='__box*-content' tag='DIV' innertext='Select Options' /&gt;" WaitForReady="COMPLETE" />
+              </ui:TypeInto.Target>
+            </ui:TypeInto>
+            <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Send Hotkey 'Down'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,156" sap2010:WorkflowViewState.IdRef="SendHotkey_53" Key="down" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+              <ui:SendHotkey.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="d3ed1b0764ee7b3b833aefd1b49cf924" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Phone Type' tag='BDI' /&gt;&lt;nav up='6' /&gt;&lt;webctrl id='__box*-content' tag='DIV' innertext='Select Options' /&gt;" WaitForReady="COMPLETE" />
+              </ui:SendHotkey.Target>
+            </ui:SendHotkey>
+            <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Send Hotkey 'Enter'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,156" sap2010:WorkflowViewState.IdRef="SendHotkey_54" Key="enter" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+              <ui:SendHotkey.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="d3ed1b0764ee7b3b833aefd1b49cf924" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Phone Type' tag='BDI' /&gt;&lt;nav up='6' /&gt;&lt;webctrl id='__box*-content' tag='DIV' innertext='Select Options' /&gt;" WaitForReady="COMPLETE" />
+              </ui:SendHotkey.Target>
+            </ui:SendHotkey>
+          </Sequence>
+          <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="True" DisplayName="Type Into 'Country Code' the value '61'" EmptyField="True" sap:VirtualizedContainerService.HintSize="314.4,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_40" SendWindowMessages="False" SimulateType="False" Text="+61">
+            <ui:TypeInto.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="5850f266b1afe4e28d2017db79138c9a" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Country Code' tag='BDI' /&gt;&lt;nav up='6' /&gt;&lt;webctrl id='__input*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+            </ui:TypeInto.Target>
+          </ui:TypeInto>
+          <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Send Hotkey 'Tab'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,156" sap2010:WorkflowViewState.IdRef="SendHotkey_55" Key="tab" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+            <ui:SendHotkey.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="ebe0dc9efe1ff9333c772ffe137e6d19" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Country Code' tag='BDI' /&gt;&lt;nav up='6' /&gt;&lt;webctrl id='__input*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+            </ui:SendHotkey.Target>
+          </ui:SendHotkey>
+          <Sequence DisplayName="Clean up Phone Number" sap:VirtualizedContainerService.HintSize="314.4,52.8" sap2010:WorkflowViewState.IdRef="Sequence_79">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <Assign DisplayName="Remove '+' Symbol" sap:VirtualizedContainerService.HintSize="243.2,60" sap2010:WorkflowViewState.IdRef="Assign_17">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[tempPhoneNumber]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[in_TransactionItem(in_Config("Column_PhoneNumber").ToString).ToString.Replace("+","")]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign DisplayName="Remove Leading '6'" sap:VirtualizedContainerService.HintSize="243.2,60" sap2010:WorkflowViewState.IdRef="Assign_18">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[tempPhoneNumber]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[tempPhoneNumber.TrimStart("6"c)]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign DisplayName="Remove Leading '1'" sap:VirtualizedContainerService.HintSize="243.2,60" sap2010:WorkflowViewState.IdRef="Assign_19">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[tempPhoneNumber]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[tempPhoneNumber.TrimStart("1"c)]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign DisplayName="Remove Leading '0'" sap:VirtualizedContainerService.HintSize="243.2,60" sap2010:WorkflowViewState.IdRef="Assign_26">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[tempPhoneNumber]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[tempPhoneNumber.TrimStart("0"c)]</InArgument>
+              </Assign.Value>
+            </Assign>
+          </Sequence>
+          <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="True" DisplayName="Type Into 'Phone Number'" EmptyField="True" sap:VirtualizedContainerService.HintSize="314.4,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_41" SendWindowMessages="False" SimulateType="False" Text="[tempPhoneNumber]">
+            <ui:TypeInto.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="a902b4e7c49f67a58dca39910922c145" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Phone Number' tag='BDI' /&gt;&lt;nav up='6' /&gt;&lt;webctrl id='__input11-content' tag='DIV' tableCol='4' tableRow='2' /&gt;" WaitForReady="COMPLETE" />
+            </ui:TypeInto.Target>
+          </ui:TypeInto>
+          <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Send Hotkey 'Tab'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,156" sap2010:WorkflowViewState.IdRef="SendHotkey_56" Key="tab" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+            <ui:SendHotkey.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="c69404f4d6b58e5860e7ea1e8e612701" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Phone Number' tag='BDI' /&gt;&lt;nav up='6' /&gt;&lt;webctrl id='__input11-content' tag='DIV' tableCol='4' tableRow='2' /&gt;" WaitForReady="COMPLETE" />
+            </ui:SendHotkey.Target>
+          </ui:SendHotkey>
+        </Sequence>
+        <Sequence DisplayName="Update Home Address" sap:VirtualizedContainerService.HintSize="314.4,52.8" sap2010:WorkflowViewState.IdRef="Sequence_81">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="x:String" Name="tempAddress" />
+            <Variable x:TypeArguments="x:String" Name="tempSuburb" />
+          </Sequence.Variables>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Address 1'" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="Click_28" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+            <ui:Click.CursorPosition>
+              <ui:CursorPosition Position="Center">
+                <ui:CursorPosition.OffsetX>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:CursorPosition.OffsetX>
+                <ui:CursorPosition.OffsetY>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:CursorPosition.OffsetY>
+              </ui:CursorPosition>
+            </ui:Click.CursorPosition>
+            <ui:Click.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="a41767bb526e42356e9f1449ea1ae0af" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl id='__input6-inner' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+            </ui:Click.Target>
+          </ui:Click>
+          <Assign DisplayName="Remove Illegal Characters in Address" sap:VirtualizedContainerService.HintSize="314.4,60" sap2010:WorkflowViewState.IdRef="Assign_27">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[tempAddress]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[System.Text.RegularExpressions.Regex.Replace(StrConv(in_TransactionItem(in_Config("Column_Address").ToString).ToString, VbStrConv.ProperCase), "[^\w\s\d\\]", String.Empty)]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="True" DisplayName="Type Into 'Address'" EmptyField="True" sap:VirtualizedContainerService.HintSize="314.4,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_42" SendWindowMessages="False" SimulateType="False" Text="[tempAddress]">
+            <ui:TypeInto.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="850cae81f508130d5ecfbe4c645f1d2a" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Address 1' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__input*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+            </ui:TypeInto.Target>
+          </ui:TypeInto>
+          <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Send Hotkey 'Tab'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,156" sap2010:WorkflowViewState.IdRef="SendHotkey_57" Key="tab" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+            <ui:SendHotkey.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="a41767bb526e42356e9f1449ea1ae0af" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Address 1' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__input*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+            </ui:SendHotkey.Target>
+          </ui:SendHotkey>
+          <Assign DisplayName="Remove Illegal characters from Suburb" sap:VirtualizedContainerService.HintSize="314.4,60" sap2010:WorkflowViewState.IdRef="Assign_28">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[tempSuburb]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[System.Text.RegularExpressions.Regex.Replace(StrConv(in_TransactionItem(in_Config("Column_Suburb").ToString).ToString, VbStrConv.ProperCase), "[^\w\s\d\\]", String.Empty)]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="True" DisplayName="Type Into 'Suburb'" EmptyField="True" sap:VirtualizedContainerService.HintSize="314.4,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_43" SendWindowMessages="False" SimulateType="False" Text="[tempSuburb]">
+            <ui:TypeInto.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="a12ab6988362883efd739bde66bc7cf0" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Suburb' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__input*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+            </ui:TypeInto.Target>
+          </ui:TypeInto>
+          <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Send Hotkey 'Tab'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,156" sap2010:WorkflowViewState.IdRef="SendHotkey_58" Key="tab" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+            <ui:SendHotkey.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="62328cfd5a41c5ff938b7b3eef2ce053" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Suburb' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__input*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+            </ui:SendHotkey.Target>
+          </ui:SendHotkey>
+        </Sequence>
+        <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Continue'" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="Click_29" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+          <ui:Click.CursorPosition>
+            <ui:CursorPosition Position="Center">
+              <ui:CursorPosition.OffsetX>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:CursorPosition.OffsetX>
+              <ui:CursorPosition.OffsetY>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:CursorPosition.OffsetY>
+            </ui:CursorPosition>
+          </ui:Click.CursorPosition>
+          <ui:Click.Target>
+            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="2e428c7111e3ffa836eb02972c9141fa" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl tag='SPAN' innertext='Continue' idx='3' /&gt;" WaitForReady="COMPLETE" />
+          </ui:Click.Target>
+        </ui:Click>
+        <Pick sap2010:Annotation.AnnotationText="Simultaneously wait for the page to load or an error to occur" sap:VirtualizedContainerService.HintSize="314.4,112.8" sap2010:WorkflowViewState.IdRef="Pick_3">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <PickBranch sap:VirtualizedContainerService.HintSize="344.8,367.2" sap2010:WorkflowViewState.IdRef="PickBranch_6">
+            <PickBranch.Trigger>
+              <ui:UiElementExists Exists="{x:Null}" DisplayName="Element Exists 'Position'" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="UiElementExists_18">
+                <ui:UiElementExists.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="fe3fdd4b15695271183f8c3bdab222d6" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl id='__label*-bdi' tag='BDI' aaname='Position' /&gt;" TimeoutMS="[Convert.ToInt32(in_Config(&quot;DelayLong&quot;).ToString)]" WaitForReady="COMPLETE" />
+                </ui:UiElementExists.Target>
+              </ui:UiElementExists>
+            </PickBranch.Trigger>
+          </PickBranch>
+          <PickBranch sap:VirtualizedContainerService.HintSize="344.8,367.2" sap2010:WorkflowViewState.IdRef="PickBranch_7">
+            <PickBranch.Trigger>
+              <ui:UiElementExists Exists="{x:Null}" DisplayName="Element Exists 'Error'" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="UiElementExists_17">
+                <ui:UiElementExists.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="156e73286b909bcc7693ff50e2db20e1" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl id='__mbox*-title-inner' tag='SPAN' aaname='*rror*' /&gt;" TimeoutMS="[Convert.ToInt32(in_Config(&quot;DelayLong&quot;).ToString)]" WaitForReady="COMPLETE" />
+                </ui:UiElementExists.Target>
+              </ui:UiElementExists>
+            </PickBranch.Trigger>
+            <Throw Exception="[new BusinessRuleException(&quot;Missing Information&quot;)]" sap:VirtualizedContainerService.HintSize="200,22.4" sap2010:WorkflowViewState.IdRef="Throw_22" />
+          </PickBranch>
+        </Pick>
+      </Sequence>
+      <Sequence sap2010:Annotation.AnnotationText="In this sequence steps 3V - 3AK of the PDD are completed. " DisplayName="Job Information" sap:VirtualizedContainerService.HintSize="200,112.8" sap2010:WorkflowViewState.IdRef="Sequence_106">
+        <Sequence.Variables>
+          <Variable x:TypeArguments="ui:GenericValue" Name="tempPositionText" />
+        </Sequence.Variables>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <Sequence DisplayName="Select Position ID" sap:VirtualizedContainerService.HintSize="844,52.8" sap2010:WorkflowViewState.IdRef="Sequence_84">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="x:Boolean" Name="tempDirectSubordinates" />
+          </Sequence.Variables>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="True" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayMedium&quot;).ToString)]" DisplayName="Type Into 'Position'" EmptyField="False" sap:VirtualizedContainerService.HintSize="464,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_44" SendWindowMessages="False" SimulateType="False" Text="[in_TransactionItem(in_Config(&quot;Column_PositionID&quot;).ToString).ToString]">
+            <ui:TypeInto.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="f5692cb00319c496ef5de85a88288dae" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Position' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+            </ui:TypeInto.Target>
+          </ui:TypeInto>
+          <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Text 'Position ID'" sap:VirtualizedContainerService.HintSize="464,107.2" sap2010:WorkflowViewState.IdRef="GetValue_21">
+            <ui:GetValue.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="4dedafce9f765f0e4b3791ebe9506b7c" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Position' tag='BDI' /&gt;&lt;nav up='29' /&gt;&lt;webctrl id='__item*-__box16-popup-list-0' tag='LI' /&gt;" WaitForReady="COMPLETE" />
+            </ui:GetValue.Target>
+            <ui:GetValue.Value>
+              <OutArgument x:TypeArguments="ui:GenericValue">[tempPositionText]</OutArgument>
+            </ui:GetValue.Value>
+          </ui:GetValue>
+          <While sap:VirtualizedContainerService.HintSize="464,266.4" sap2010:WorkflowViewState.IdRef="While_8" Condition="[tempPositionText.Contains(&quot;Loading...&quot;) = True]">
+            <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Text 'Position ID'" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="GetValue_22">
+              <ui:GetValue.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="4dedafce9f765f0e4b3791ebe9506b7c" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Position' tag='BDI' /&gt;&lt;nav up='29' /&gt;&lt;webctrl id='__item*-__box16-popup-list-0' tag='LI' /&gt;" WaitForReady="COMPLETE" />
+              </ui:GetValue.Target>
+              <ui:GetValue.Value>
+                <OutArgument x:TypeArguments="ui:GenericValue">[tempPositionText]</OutArgument>
+              </ui:GetValue.Value>
+            </ui:GetValue>
+          </While>
+          <If Condition="[tempPositionText.Contains(&quot;*No data*&quot;)]" DisplayName="If Position ID Does not exist" sap:VirtualizedContainerService.HintSize="464,209.6" sap2010:WorkflowViewState.IdRef="If_25">
+            <If.Then>
+              <Throw Exception="[new BusinessRuleException(&quot;Position ID is not found&quot;)]" sap:VirtualizedContainerService.HintSize="200,22.4" sap2010:WorkflowViewState.IdRef="Throw_15" />
+            </If.Then>
+          </If>
+          <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Send Hotkey 'Down'" EmptyField="False" sap:VirtualizedContainerService.HintSize="464,156" sap2010:WorkflowViewState.IdRef="SendHotkey_59" Key="down" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+            <ui:SendHotkey.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="38c7377c799985194317cca0ebef2559" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Position' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+            </ui:SendHotkey.Target>
+          </ui:SendHotkey>
+          <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayMedium&quot;).ToString)]" DisplayName="Send Hotkey 'Enter'" EmptyField="False" sap:VirtualizedContainerService.HintSize="464,156" sap2010:WorkflowViewState.IdRef="SendHotkey_60" Key="enter" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+            <ui:SendHotkey.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="38c7377c799985194317cca0ebef2559" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Position' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+            </ui:SendHotkey.Target>
+          </ui:SendHotkey>
+          <ui:UiElementExists DisplayName="Element Exists 'Direct Subordinates'" Exists="[tempDirectSubordinates]" sap:VirtualizedContainerService.HintSize="464,107.2" sap2010:WorkflowViewState.IdRef="UiElementExists_10">
+            <ui:UiElementExists.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="35b0b97759dcfacc4e298a71f9ed39c6" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl tag='BDI' aaname='Direct Subordinates' /&gt;" TimeoutMS="3000" WaitForReady="COMPLETE" />
+            </ui:UiElementExists.Target>
+          </ui:UiElementExists>
+          <If Condition="[tempDirectSubordinates = True]" sap:VirtualizedContainerService.HintSize="464,209.6" sap2010:WorkflowViewState.IdRef="If_26">
+            <If.Then>
+              <Throw Exception="[New BusinessRuleException(&quot;The position is managerial&quot;)]" sap:VirtualizedContainerService.HintSize="200,22.4" sap2010:WorkflowViewState.IdRef="Throw_16" />
+            </If.Then>
+          </If>
+        </Sequence>
+        <Sequence DisplayName="Validate Cost Centre" sap:VirtualizedContainerService.HintSize="486.4,481.6" sap2010:WorkflowViewState.IdRef="Sequence_85">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="ui:GenericValue" Name="tempCostCentre" />
+          </Sequence.Variables>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Text 'Cost Centre'" sap:VirtualizedContainerService.HintSize="464,107.2" sap2010:WorkflowViewState.IdRef="GetValue_23">
+            <ui:GetValue.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="557dcf7004297859a5889388df458c24" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Cost Centre' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-inner' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+            </ui:GetValue.Target>
+            <ui:GetValue.Value>
+              <OutArgument x:TypeArguments="ui:GenericValue">[tempCostCentre]</OutArgument>
+            </ui:GetValue.Value>
+          </ui:GetValue>
+          <If Condition="[tempCostCentre.Contains(in_TransactionItem(in_Config(&quot;Column_CostCentre&quot;).ToString).ToString) = False]" DisplayName="If Cost Centre Doesn't Match, Throw an error" sap:VirtualizedContainerService.HintSize="464,209.6" sap2010:WorkflowViewState.IdRef="If_27">
+            <If.Then>
+              <Throw Exception="[new BusinessRuleException(&quot;Cost Centre's Don't Match&quot;)]" sap:VirtualizedContainerService.HintSize="200,22.4" sap2010:WorkflowViewState.IdRef="Throw_17" />
+            </If.Then>
+          </If>
+        </Sequence>
+        <Sequence DisplayName="Update Employee Group" sap:VirtualizedContainerService.HintSize="844,52.8" sap2010:WorkflowViewState.IdRef="Sequence_87">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Employee Group'" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="Click_32" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+            <ui:Click.CursorPosition>
+              <ui:CursorPosition Position="Center">
+                <ui:CursorPosition.OffsetX>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:CursorPosition.OffsetX>
+                <ui:CursorPosition.OffsetY>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:CursorPosition.OffsetY>
+              </ui:CursorPosition>
+            </ui:Click.CursorPosition>
+            <ui:Click.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="e669f65dad3c69fe4cdacfb1d82f7377" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Employee Group' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-content' tag='DIV' innertext='Select Options' /&gt;" WaitForReady="COMPLETE" />
+            </ui:Click.Target>
+          </ui:Click>
+          <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="True" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Type Into 'Employee Group'" EmptyField="True" sap:VirtualizedContainerService.HintSize="314.4,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_46" SendWindowMessages="False" SimulateType="False" Text="[in_TransactionItem(in_Config(&quot;Column_EmployeeGroup&quot;).ToString).ToString]">
+            <ui:TypeInto.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="61a5765dd980471ad618578bea744b4f" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Employee Group' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-content' tag='DIV' innertext='Select Options' /&gt;" WaitForReady="COMPLETE" />
+            </ui:TypeInto.Target>
+          </ui:TypeInto>
+          <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Send Hotkey 'Down'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,156" sap2010:WorkflowViewState.IdRef="SendHotkey_63" Key="down" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+            <ui:SendHotkey.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="e2a503ede72d63a6ea67357bf3b63ed0" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Employee Group' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-inner' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
+            </ui:SendHotkey.Target>
+          </ui:SendHotkey>
+          <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Send Hotkey 'Enter'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,156" sap2010:WorkflowViewState.IdRef="SendHotkey_64" Key="enter" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+            <ui:SendHotkey.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="e2a503ede72d63a6ea67357bf3b63ed0" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Employee Group' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-inner' tag='INPUT' /&gt;" WaitForReady="INTERACTIVE" />
+            </ui:SendHotkey.Target>
+          </ui:SendHotkey>
+        </Sequence>
+        <Sequence DisplayName="Update Type of Employee Movement" sap:VirtualizedContainerService.HintSize="844,52.8" sap2010:WorkflowViewState.IdRef="Sequence_89">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Type of Employee Movement'" sap:VirtualizedContainerService.HintSize="464,107.2" sap2010:WorkflowViewState.IdRef="Click_33" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+            <ui:Click.CursorPosition>
+              <ui:CursorPosition Position="Center">
+                <ui:CursorPosition.OffsetX>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:CursorPosition.OffsetX>
+                <ui:CursorPosition.OffsetY>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:CursorPosition.OffsetY>
+              </ui:CursorPosition>
+            </ui:Click.CursorPosition>
+            <ui:Click.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="8b549f556a500c9fd6454a5e5d7aaa8d" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Type of Employee Movement' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+            </ui:Click.Target>
+          </ui:Click>
+          <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="True" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Type Into 'Type of Employee Movement'" EmptyField="True" sap:VirtualizedContainerService.HintSize="464,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_47" SendWindowMessages="False" SimulateType="False" Text="[in_TransactionItem(in_Config(&quot;Column_EmployeeMovement&quot;).ToString).ToString]">
+            <ui:TypeInto.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="c74bfce878698af806d5352e9e5066a7" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Type of Employee Movement' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+            </ui:TypeInto.Target>
+          </ui:TypeInto>
+          <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Send Hotkey 'Down'" EmptyField="False" sap:VirtualizedContainerService.HintSize="464,156" sap2010:WorkflowViewState.IdRef="SendHotkey_65" Key="down" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+            <ui:SendHotkey.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="7b730dfbac8fb97b1b9da402c6fc3c6c" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Type of Employee Movement' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+            </ui:SendHotkey.Target>
+          </ui:SendHotkey>
+          <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Send Hotkey 'Enter'" EmptyField="False" sap:VirtualizedContainerService.HintSize="464,156" sap2010:WorkflowViewState.IdRef="SendHotkey_66" Key="enter" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+            <ui:SendHotkey.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="7b730dfbac8fb97b1b9da402c6fc3c6c" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Type of Employee Movement' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+            </ui:SendHotkey.Target>
+          </ui:SendHotkey>
+          <If Condition="[in_TransactionItem(in_Config(&quot;Column_EmployeeMovement&quot;).ToString).ToString = &quot;Fixed Term&quot;]" DisplayName="If Type of Employee Movement is Fixed Term, update the end date" sap:VirtualizedContainerService.HintSize="464,752.8" sap2010:WorkflowViewState.IdRef="If_28">
+            <If.Then>
+              <Sequence sap:VirtualizedContainerService.HintSize="336.8,603.2" sap2010:WorkflowViewState.IdRef="Sequence_88">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Employee Movement End Date'" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="Click_34" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                  <ui:Click.CursorPosition>
+                    <ui:CursorPosition Position="Center">
+                      <ui:CursorPosition.OffsetX>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:CursorPosition.OffsetX>
+                      <ui:CursorPosition.OffsetY>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:CursorPosition.OffsetY>
+                    </ui:CursorPosition>
+                  </ui:Click.CursorPosition>
+                  <ui:Click.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="33154733931d0da6a7ce93faa4301247" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Employee Movement End Date' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__picker*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+                  </ui:Click.Target>
+                </ui:Click>
+                <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="True" DelayMS="[Convert.ToInt32(in_Config(&quot;DelaryShort&quot;).ToString)]" DisplayName="Type Into 'Employee Movement End Date'" EmptyField="True" sap:VirtualizedContainerService.HintSize="314.4,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_48" SendWindowMessages="True" SimulateType="False" Text="[in_TransactionItem(in_Config(&quot;Column_EmployeeMovementEndDate&quot;).ToString).ToString]">
+                  <ui:TypeInto.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="36e73fccadafba25dbf5eeb576601f5f" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Employee Movement End Date' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__picker*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+                  </ui:TypeInto.Target>
+                </ui:TypeInto>
+                <ui:SendHotkey DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayBefore="0" DelayMS="[Convert.ToInt32(in_Config(&quot;DelaryShort&quot;).ToString)]" DisplayName="Send Hotkey 'Tab'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,156" sap2010:WorkflowViewState.IdRef="SendHotkey_67" Key="tab" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+                  <ui:SendHotkey.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="5f7b87f65419521a538900aa387aadcb" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Employee Movement End Date' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__picker*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+                  </ui:SendHotkey.Target>
+                </ui:SendHotkey>
+              </Sequence>
+            </If.Then>
+          </If>
+        </Sequence>
+        <Sequence DisplayName="Update Base Hours &amp; Working Days" sap:VirtualizedContainerService.HintSize="844,52.8" sap2010:WorkflowViewState.IdRef="Sequence_92">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <If Condition="[in_TransactionItem(in_Config(&quot;Column_EmployeeGroup&quot;).ToString).ToString.ToUpper.Contains(&quot;PART-TIME&quot;) = True]" DisplayName="If Employee Group is Part-Time, update the base hours" sap:VirtualizedContainerService.HintSize="464,752.8" sap2010:WorkflowViewState.IdRef="If_29">
+            <If.Then>
+              <Sequence sap:VirtualizedContainerService.HintSize="336.8,603.2" sap2010:WorkflowViewState.IdRef="Sequence_90">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Base Hours'" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="Click_35" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                  <ui:Click.CursorPosition>
+                    <ui:CursorPosition Position="Center">
+                      <ui:CursorPosition.OffsetX>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:CursorPosition.OffsetX>
+                      <ui:CursorPosition.OffsetY>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:CursorPosition.OffsetY>
+                    </ui:CursorPosition>
+                  </ui:Click.CursorPosition>
+                  <ui:Click.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="bbfcc644884e78ae6f7fbd4898690f66" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Base Hours' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__input*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+                  </ui:Click.Target>
+                </ui:Click>
+                <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="True" DisplayName="Type Into 'Base Hours'" EmptyField="True" sap:VirtualizedContainerService.HintSize="314.4,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_49" SendWindowMessages="False" SimulateType="False" Text="[in_TransactionItem(in_Config(&quot;Column_BaseHours&quot;).ToString).ToString]">
+                  <ui:TypeInto.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="e1afb97fc8b0520b66f5fab36a0292d3" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Base Hours' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__input*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+                  </ui:TypeInto.Target>
+                </ui:TypeInto>
+                <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Send Hotkey 'Tab'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,156" sap2010:WorkflowViewState.IdRef="SendHotkey_68" Key="tab" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+                  <ui:SendHotkey.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="bbfcc644884e78ae6f7fbd4898690f66" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Base Hours' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__input*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+                  </ui:SendHotkey.Target>
+                </ui:SendHotkey>
+              </Sequence>
+            </If.Then>
+          </If>
+          <If Condition="[in_TransactionItem(in_Config(&quot;Column_EmployeeGroup&quot;).ToString).ToString.ToUpper.Contains(&quot;CASUAL&quot;) = False]" DisplayName="If Employee Group is not Casual, update the base hours" sap:VirtualizedContainerService.HintSize="464,752.8" sap2010:WorkflowViewState.IdRef="If_30">
+            <If.Then>
+              <Sequence sap:VirtualizedContainerService.HintSize="336.8,603.2" sap2010:WorkflowViewState.IdRef="Sequence_91">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Working Days Per Week'" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="Click_36" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                  <ui:Click.CursorPosition>
+                    <ui:CursorPosition Position="Center">
+                      <ui:CursorPosition.OffsetX>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:CursorPosition.OffsetX>
+                      <ui:CursorPosition.OffsetY>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:CursorPosition.OffsetY>
+                    </ui:CursorPosition>
+                  </ui:Click.CursorPosition>
+                  <ui:Click.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="826370c444bb5a017b3517a0e7463649" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Working Days Per Week' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__input*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+                  </ui:Click.Target>
+                </ui:Click>
+                <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="True" DisplayName="Type Into 'Working Days Per Week'" EmptyField="True" sap:VirtualizedContainerService.HintSize="314.4,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_50" SendWindowMessages="False" SimulateType="False" Text="[in_TransactionItem(in_Config(&quot;Column_WorkingDays&quot;).ToString).ToString]">
+                  <ui:TypeInto.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="b5c629f1dd5a8751c488f48c9332fce4" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Working Days Per Week' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__input*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+                  </ui:TypeInto.Target>
+                </ui:TypeInto>
+                <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Send Hotkey 'Working Days Per Week'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,156" sap2010:WorkflowViewState.IdRef="SendHotkey_69" Key="tab" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+                  <ui:SendHotkey.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="826370c444bb5a017b3517a0e7463649" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Working Days Per Week' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__input*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+                  </ui:SendHotkey.Target>
+                </ui:SendHotkey>
+              </Sequence>
+            </If.Then>
+          </If>
+        </Sequence>
+        <Sequence DisplayName="Update Superannuation Guarantee" sap:VirtualizedContainerService.HintSize="844,52.8" sap2010:WorkflowViewState.IdRef="Sequence_93">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Superannuation Gurarantee'" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="Click_37" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+            <ui:Click.CursorPosition>
+              <ui:CursorPosition Position="Center">
+                <ui:CursorPosition.OffsetX>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:CursorPosition.OffsetX>
+                <ui:CursorPosition.OffsetY>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:CursorPosition.OffsetY>
+              </ui:CursorPosition>
+            </ui:Click.CursorPosition>
+            <ui:Click.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="731403f1e3e56fe9d8d6093267d23fc3" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Superannuation Guarantee' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__input*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+            </ui:Click.Target>
+          </ui:Click>
+          <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="True" DisplayName="Type Into 'Superannuation Guarantee'" EmptyField="True" sap:VirtualizedContainerService.HintSize="314.4,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_51" SendWindowMessages="False" SimulateType="False" Text="[in_TransactionItem(in_Config(&quot;Column_SuperannuationGuarantee&quot;).ToString).ToString]">
+            <ui:TypeInto.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="ab5bb4915fb95a276e865db6a3b4d47d" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Superannuation Guarantee' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__input*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+            </ui:TypeInto.Target>
+          </ui:TypeInto>
+          <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Send Hotkey 'Superannuation Guarantee'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,156" sap2010:WorkflowViewState.IdRef="SendHotkey_70" Key="tab" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+            <ui:SendHotkey.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="b57aecc47b2c4f0ff79829b1eb9a2116" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Superannuation Guarantee' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__input*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+            </ui:SendHotkey.Target>
+          </ui:SendHotkey>
+        </Sequence>
+        <Sequence DisplayName="Update Payscale Level" sap:VirtualizedContainerService.HintSize="844,52.8" sap2010:WorkflowViewState.IdRef="Sequence_101">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="x:String" Name="tempPayScaleGroup" />
+            <Variable x:TypeArguments="sd:DataTable" Name="dtPayScaleLevelMapping" />
+            <Variable x:TypeArguments="x:String" Name="tempAge" />
+            <Variable x:TypeArguments="x:String" Name="tempPayScaleLevel" />
+          </Sequence.Variables>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Sequence DisplayName="Calculate Age" sap:VirtualizedContainerService.HintSize="314.4,52.8" sap2010:WorkflowViewState.IdRef="Sequence_94">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="s:DateTime" Name="tempFirstDayAtWork" />
+              <Variable x:TypeArguments="s:DateTime" Name="tempDOB" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <Assign sap:VirtualizedContainerService.HintSize="243.2,60" sap2010:WorkflowViewState.IdRef="Assign_21">
+              <Assign.To>
+                <OutArgument x:TypeArguments="s:DateTime">[tempFirstDayAtWork]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="s:DateTime">[Datetime.Today()]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="243.2,60" sap2010:WorkflowViewState.IdRef="Assign_22">
+              <Assign.To>
+                <OutArgument x:TypeArguments="s:DateTime">[tempDOB]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="s:DateTime">[Datetime.ParseExact(in_TransactionItem(in_Config("Column_DateOfBirth").ToString).ToString,“d/M/yyyy”,system.globalization.cultureinfo.invariantculture)]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="243.2,60" sap2010:WorkflowViewState.IdRef="Assign_23">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[tempAge]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[(Math.Floor(((tempFirstDayAtWork - tempDOB).Days)/365)).ToString]</InArgument>
+              </Assign.Value>
+            </Assign>
+          </Sequence>
+          <Sequence DisplayName="Get Pay Scale Level Mapping File" sap:VirtualizedContainerService.HintSize="314.4,52.8" sap2010:WorkflowViewState.IdRef="Sequence_96">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <uga:GSuiteApplicationScope ApiKey="{x:Null}" CredentialID="{x:Null}" CredentialSecret="{x:Null}" Password="{x:Null}" ServiceAccountEmail="{x:Null}" UserEmail="{x:Null}" AuthenticationType="ServiceAccountKey" DisplayName="GSuite Application Scope" HasDomainWideAccesss="False" sap:VirtualizedContainerService.HintSize="414.4,294.4" sap2010:WorkflowViewState.IdRef="GSuiteApplicationScope_2" KeyPath="Data\Input\project-id-1338237216386383204-7370c5750676.json" KeyType="JSON" Services="Sheets">
+              <uga:GSuiteApplicationScope.Body>
+                <ActivityAction x:TypeArguments="ug:SimpleObjectContainer">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="ug:SimpleObjectContainer" Name="GSuiteScope" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="336.8,208" sap2010:WorkflowViewState.IdRef="Sequence_95">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <uga:ReadRange AuthScopesInvalid="False" DisplayName="Read Range" sap:VirtualizedContainerService.HintSize="314.4,83.2" sap2010:WorkflowViewState.IdRef="ReadRange_2" IncludeHeaders="True" Result="[dtPayScaleLevelMapping]" SheetName="[in_Config(&quot;Data_PayScaleLevelMapping_SheetName&quot;).ToString]" SpreadsheetId="[in_Config(&quot;Data_SourceReport_ID&quot;).ToString]">
+                      <uga:ReadRange.Range>
+                        <InArgument x:TypeArguments="x:String">
+                          <Literal x:TypeArguments="x:String" Value="" />
+                        </InArgument>
+                      </uga:ReadRange.Range>
+                    </uga:ReadRange>
+                  </Sequence>
+                </ActivityAction>
+              </uga:GSuiteApplicationScope.Body>
+            </uga:GSuiteApplicationScope>
+          </Sequence>
+          <Sequence DisplayName="Get Pay Scale Level" sap:VirtualizedContainerService.HintSize="314.4,52.8" sap2010:WorkflowViewState.IdRef="Sequence_100">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:GetValue ContinueOnError="{x:Null}" DisplayName="Get Text 'Pay Scale Group'" sap:VirtualizedContainerService.HintSize="516.8,107.2" sap2010:WorkflowViewState.IdRef="GetValue_24">
+              <ui:GetValue.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="eabae8facfd268b879ccdfc45ad9849a" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Pay Scale Group' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-inner' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+              </ui:GetValue.Target>
+              <ui:GetValue.Value>
+                <OutArgument x:TypeArguments="x:String">[tempPayScaleGroup]</OutArgument>
+              </ui:GetValue.Value>
+            </ui:GetValue>
+            <Assign sap:VirtualizedContainerService.HintSize="516.8,60" sap2010:WorkflowViewState.IdRef="Assign_24">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[tempPayScaleGroup]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[System.Text.RegularExpressions.Regex.Match(tempPayScaleGroup,"(?&lt;=\().*?(?=\))").ToString.Trim(" "c)]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[dtPayScaleLevelMapping]" DisplayName="For Each Row" sap:VirtualizedContainerService.HintSize="516.8,670.4" sap2010:WorkflowViewState.IdRef="ForEachRow_2">
+              <ui:ForEachRow.Body>
+                <ActivityAction x:TypeArguments="sd:DataRow">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="486.4,521.6" sap2010:WorkflowViewState.IdRef="Sequence_99">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <If Condition="[tempPayScaleGroup = row(0).ToString AND Convert.ToInt32(tempAge.ToString) &gt;= Convert.ToInt32(row(1).ToString) And Convert.ToInt32(tempAge.ToString) &lt;= Convert.ToInt32(row(2).ToString)]" sap:VirtualizedContainerService.HintSize="464,396.8" sap2010:WorkflowViewState.IdRef="If_31">
+                      <If.Then>
+                        <Sequence sap:VirtualizedContainerService.HintSize="265.6,247.2" sap2010:WorkflowViewState.IdRef="Sequence_97">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <Assign sap:VirtualizedContainerService.HintSize="243.2,60" sap2010:WorkflowViewState.IdRef="Assign_25">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="x:String">[tempPayScaleLevel]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="x:String">[row(3).ToString]</InArgument>
+                            </Assign.Value>
+                          </Assign>
+                          <ui:Break sap:VirtualizedContainerService.HintSize="243.2,22.4" sap2010:WorkflowViewState.IdRef="Break_2" />
+                        </Sequence>
+                      </If.Then>
+                    </If>
+                  </Sequence>
+                </ActivityAction>
+              </ui:ForEachRow.Body>
+            </ui:ForEachRow>
+          </Sequence>
+          <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Pay Scale Level'" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="Click_38" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+            <ui:Click.CursorPosition>
+              <ui:CursorPosition Position="Center">
+                <ui:CursorPosition.OffsetX>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:CursorPosition.OffsetX>
+                <ui:CursorPosition.OffsetY>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:CursorPosition.OffsetY>
+              </ui:CursorPosition>
+            </ui:Click.CursorPosition>
+            <ui:Click.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="7e4dfe2cec91132dd2ab7fd6461f7df5" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Pay Scale Level' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-inner' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+            </ui:Click.Target>
+          </ui:Click>
+          <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="True" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Type Into 'Pay Scale Level'" EmptyField="True" sap:VirtualizedContainerService.HintSize="314.4,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_52" SendWindowMessages="False" SimulateType="False" Text="[tempPayScaleLevel]">
+            <ui:TypeInto.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="c535f6b39770a4640005aa8bc5da47fd" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Pay Scale Level' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+            </ui:TypeInto.Target>
+          </ui:TypeInto>
+          <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Send Hotkey 'Down'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,156" sap2010:WorkflowViewState.IdRef="SendHotkey_71" Key="down" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+            <ui:SendHotkey.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="e7b179a4b81eec491361924d30251665" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Pay Scale Level' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+            </ui:SendHotkey.Target>
+          </ui:SendHotkey>
+          <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Send Hotkey 'Enter'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,156" sap2010:WorkflowViewState.IdRef="SendHotkey_72" Key="enter" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+            <ui:SendHotkey.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="e7b179a4b81eec491361924d30251665" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Pay Scale Level' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+            </ui:SendHotkey.Target>
+          </ui:SendHotkey>
+        </Sequence>
+        <Sequence DisplayName="Update Personal &amp; Annual Leave" sap:VirtualizedContainerService.HintSize="844,52.8" sap2010:WorkflowViewState.IdRef="Sequence_103">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <If Condition="[in_TransactionItem(in_Config(&quot;Column_EmployeeGroup&quot;).ToString).ToString.ToUpper.Contains(&quot;CASUAL&quot;) = True]" DisplayName="If Employee Group is Casual, remove the Annual and Personal Leave Dates" sap:VirtualizedContainerService.HintSize="464,1271.2" sap2010:WorkflowViewState.IdRef="If_32">
+            <If.Then>
+              <Sequence sap:VirtualizedContainerService.HintSize="336.8,1121.6" sap2010:WorkflowViewState.IdRef="Sequence_102">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Personal Leave'" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="Click_39" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                  <ui:Click.CursorPosition>
+                    <ui:CursorPosition Position="Center">
+                      <ui:CursorPosition.OffsetX>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:CursorPosition.OffsetX>
+                      <ui:CursorPosition.OffsetY>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:CursorPosition.OffsetY>
+                    </ui:CursorPosition>
+                  </ui:Click.CursorPosition>
+                  <ui:Click.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="23d02dac0a8a84d48f18f8d775b43e07" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Personal Leave' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__picker*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+                  </ui:Click.Target>
+                </ui:Click>
+                <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="True" DisplayName="Remove 'Personal Leave' Date" EmptyField="True" sap:VirtualizedContainerService.HintSize="314.4,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_53" SendWindowMessages="True" SimulateType="False">
+                  <ui:TypeInto.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="23f29f7e90442e868bb8ad5ff980c6fc" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Personal Leave' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__picker*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+                  </ui:TypeInto.Target>
+                  <ui:TypeInto.Text>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:TypeInto.Text>
+                </ui:TypeInto>
+                <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Send Hotkey 'Tab'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,156" sap2010:WorkflowViewState.IdRef="SendHotkey_73" Key="tab" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+                  <ui:SendHotkey.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="32c1efb5eee1574a3ea0fa52581bfbb4" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Personal Leave' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__picker*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+                  </ui:SendHotkey.Target>
+                </ui:SendHotkey>
+                <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Annual Leave'" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="Click_40" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                  <ui:Click.CursorPosition>
+                    <ui:CursorPosition Position="Center">
+                      <ui:CursorPosition.OffsetX>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:CursorPosition.OffsetX>
+                      <ui:CursorPosition.OffsetY>
+                        <InArgument x:TypeArguments="x:Int32" />
+                      </ui:CursorPosition.OffsetY>
+                    </ui:CursorPosition>
+                  </ui:Click.CursorPosition>
+                  <ui:Click.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="25f1542b2800e673fc5b9688269d1272" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Annual Leave' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__picker*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+                  </ui:Click.Target>
+                </ui:Click>
+                <ui:TypeInto DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="True" DelayBefore="0" DelayMS="0" DisplayName="Remove 'Annual Leave' Date" EmptyField="True" sap:VirtualizedContainerService.HintSize="314.4,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_54" SendWindowMessages="True" SimulateType="False">
+                  <ui:TypeInto.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="3bb6056fef7da20c53d00176b075f598" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Annual Leave' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__picker*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+                  </ui:TypeInto.Target>
+                  <ui:TypeInto.Text>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:TypeInto.Text>
+                </ui:TypeInto>
+                <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="Send Hotkey 'Tab'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,156" sap2010:WorkflowViewState.IdRef="SendHotkey_74" Key="tab" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+                  <ui:SendHotkey.Target>
+                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="25f1542b2800e673fc5b9688269d1272" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Annual Leave' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__picker*-content' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+                  </ui:SendHotkey.Target>
+                </ui:SendHotkey>
+              </Sequence>
+            </If.Then>
+          </If>
+        </Sequence>
+        <Sequence DisplayName="Update Work Entitlements" sap:VirtualizedContainerService.HintSize="844,52.8" sap2010:WorkflowViewState.IdRef="Sequence_104">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:Click ClickType="CLICK_SINGLE" ContinueOnError="True" DelayBefore="0" DelayMS="0" DisplayName="Click 'Bin' to remove work entitlement details" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="Click_41" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="True" SimulateClick="False">
+            <ui:Click.CursorPosition>
+              <ui:CursorPosition Position="Center">
+                <ui:CursorPosition.OffsetX>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:CursorPosition.OffsetX>
+                <ui:CursorPosition.OffsetY>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:CursorPosition.OffsetY>
+              </ui:CursorPosition>
+            </ui:Click.CursorPosition>
+            <ui:Click.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="079fd57d21d774fbbad84ac6f3c921b2" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Work Entitlement Details' tag='SPAN' /&gt;&lt;nav up='2' /&gt;&lt;webctrl id='__button*-img' tag='SPAN' /&gt;" TimeoutMS="[Convert.ToInt32(in_Config(&quot;TimeoutShort&quot;).ToString)]" WaitForReady="COMPLETE" />
+            </ui:Click.Target>
+          </ui:Click>
+        </Sequence>
+        <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Continue'" sap:VirtualizedContainerService.HintSize="844,107.2" sap2010:WorkflowViewState.IdRef="Click_42" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+          <ui:Click.CursorPosition>
+            <ui:CursorPosition Position="Center">
+              <ui:CursorPosition.OffsetX>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:CursorPosition.OffsetX>
+              <ui:CursorPosition.OffsetY>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:CursorPosition.OffsetY>
+            </ui:CursorPosition>
+          </ui:Click.CursorPosition>
+          <ui:Click.Target>
+            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="1b341adb5d476787fab7959edc26943f" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl id='__button*-inner' tag='SPAN' innertext='Continue' isleaf='0' idx='3' /&gt;" WaitForReady="COMPLETE" />
+          </ui:Click.Target>
+        </ui:Click>
+        <Pick sap2010:Annotation.AnnotationText="Simultaneously wait for the page to load or an error to occur" sap:VirtualizedContainerService.HintSize="844,441.6" sap2010:WorkflowViewState.IdRef="Pick_4">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <PickBranch sap:VirtualizedContainerService.HintSize="344.8,367.2" sap2010:WorkflowViewState.IdRef="PickBranch_8">
+            <PickBranch.Trigger>
+              <ui:UiElementExists Exists="{x:Null}" DisplayName="Element Exists 'Payroll Area'" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="UiElementExists_19">
+                <ui:UiElementExists.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="8e3d3fb90325ffc2b6c012670fa56cd0" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl id='__label*-bdi' tag='BDI' aaname='Payroll Area' /&gt;" TimeoutMS="[Convert.ToInt32(in_Config(&quot;DelayLong&quot;).ToString)]" WaitForReady="COMPLETE" />
+                </ui:UiElementExists.Target>
+              </ui:UiElementExists>
+            </PickBranch.Trigger>
+          </PickBranch>
+          <PickBranch sap:VirtualizedContainerService.HintSize="344.8,367.2" sap2010:WorkflowViewState.IdRef="PickBranch_9">
+            <PickBranch.Trigger>
+              <ui:UiElementExists Exists="{x:Null}" DisplayName="Element Exists 'Error'" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="UiElementExists_20">
+                <ui:UiElementExists.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="156e73286b909bcc7693ff50e2db20e1" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl id='__mbox*-title-inner' tag='SPAN' aaname='*rror*' /&gt;" TimeoutMS="[Convert.ToInt32(in_Config(&quot;DelayLong&quot;).ToString)]" WaitForReady="COMPLETE" />
+                </ui:UiElementExists.Target>
+              </ui:UiElementExists>
+            </PickBranch.Trigger>
+            <Throw Exception="[new BusinessRuleException(&quot;Missing Information&quot;)]" sap:VirtualizedContainerService.HintSize="200,22.4" sap2010:WorkflowViewState.IdRef="Throw_23" />
+          </PickBranch>
+        </Pick>
+      </Sequence>
+      <Sequence sap2010:Annotation.AnnotationText="In this sequence steps 3AK - 3AN of the PDD are completed. " DisplayName="Compensation" sap:VirtualizedContainerService.HintSize="200,112.8" sap2010:WorkflowViewState.IdRef="Sequence_110">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <Sequence DisplayName="Update Payroll Area" sap:VirtualizedContainerService.HintSize="314.4,52.8" sap2010:WorkflowViewState.IdRef="Sequence_107">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Payroll Area'" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="Click_43" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+            <ui:Click.CursorPosition>
+              <ui:CursorPosition Position="Center">
+                <ui:CursorPosition.OffsetX>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:CursorPosition.OffsetX>
+                <ui:CursorPosition.OffsetY>
+                  <InArgument x:TypeArguments="x:Int32" />
+                </ui:CursorPosition.OffsetY>
+              </ui:CursorPosition>
+            </ui:Click.CursorPosition>
+            <ui:Click.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="650f81937ec05c800aa3ba8888152430" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Payroll Area' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-inner' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+            </ui:Click.Target>
+          </ui:Click>
+          <ui:TypeInto DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="True" DelayBefore="0" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Type Into 'Payroll Area'" EmptyField="True" sap:VirtualizedContainerService.HintSize="314.4,135.2" sap2010:WorkflowViewState.IdRef="TypeInto_55" SendWindowMessages="False" SimulateType="True" Text="[in_TransactionItem(in_Config(&quot;Column_PayrollArea&quot;).ToString).ToString]">
+            <ui:TypeInto.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="650f81937ec05c800aa3ba8888152430" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Payroll Area' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-inner' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+            </ui:TypeInto.Target>
+          </ui:TypeInto>
+          <ui:SendHotkey DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayBefore="0" DelayMS="0" DisplayName="Send Hotkey 'Down'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,156" sap2010:WorkflowViewState.IdRef="SendHotkey_75" Key="down" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+            <ui:SendHotkey.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="82d37162fe07aa0098c6814ff06fba79" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Payroll Area' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-inner' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+            </ui:SendHotkey.Target>
+          </ui:SendHotkey>
+          <ui:SendHotkey DelayBetweenKeys="{x:Null}" Activate="True" ClickBeforeTyping="False" DelayBefore="0" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Send Hotkey 'Enter'" EmptyField="False" sap:VirtualizedContainerService.HintSize="314.4,156" sap2010:WorkflowViewState.IdRef="SendHotkey_76" Key="enter" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+            <ui:SendHotkey.Target>
+              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="82d37162fe07aa0098c6814ff06fba79" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl aaname='Payroll Area' tag='BDI' /&gt;&lt;nav up='3' /&gt;&lt;webctrl id='__box*-inner' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+            </ui:SendHotkey.Target>
+          </ui:SendHotkey>
+        </Sequence>
+        <ui:Click DelayBefore="{x:Null}" ClickType="CLICK_SINGLE" DelayMS="[Convert.ToInt32(in_Config(&quot;DelayShort&quot;).ToString)]" DisplayName="Click 'Continue'" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="Click_45" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+          <ui:Click.CursorPosition>
+            <ui:CursorPosition Position="Center">
+              <ui:CursorPosition.OffsetX>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:CursorPosition.OffsetX>
+              <ui:CursorPosition.OffsetY>
+                <InArgument x:TypeArguments="x:Int32" />
+              </ui:CursorPosition.OffsetY>
+            </ui:CursorPosition>
+          </ui:Click.CursorPosition>
+          <ui:Click.Target>
+            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="1b341adb5d476787fab7959edc26943f" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl id='__button*-inner' tag='SPAN' innertext='Continue' isleaf='0' idx='4' /&gt;" WaitForReady="COMPLETE" />
+          </ui:Click.Target>
+        </ui:Click>
+        <Pick sap2010:Annotation.AnnotationText="Simultaneously wait for the page to load or an error to occur" sap:VirtualizedContainerService.HintSize="1091.2,763.2" sap2010:WorkflowViewState.IdRef="Pick_5">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <PickBranch sap:VirtualizedContainerService.HintSize="592,688.8" sap2010:WorkflowViewState.IdRef="PickBranch_10">
+            <PickBranch.Variables>
+              <Variable x:TypeArguments="x:Boolean" Name="tempHireCompleted" />
+            </PickBranch.Variables>
+            <PickBranch.Trigger>
+              <ui:UiElementExists DisplayName="Element Exists 'Successfully Hired'" Exists="[tempHireCompleted]" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="UiElementExists_22">
+                <ui:UiElementExists.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="4c0790dbe6aa44fbfee4a7f0c653584b" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl id='__text*' tag='SPAN' aaname='The recruitment date for *.' /&gt;" TimeoutMS="[Convert.ToInt32(in_Config(&quot;TimeoutLong&quot;).ToString)]" WaitForReady="COMPLETE" />
+                </ui:UiElementExists.Target>
+              </ui:UiElementExists>
+            </PickBranch.Trigger>
+            <Sequence sap:VirtualizedContainerService.HintSize="561.6,381.6" sap2010:WorkflowViewState.IdRef="Sequence_120">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <If Condition="[tempHireCompleted = True]" sap:VirtualizedContainerService.HintSize="539.2,256.8" sap2010:WorkflowViewState.IdRef="If_36">
+                <If.Then>
+                  <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Ok'" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="Click_49" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+                    <ui:Click.CursorPosition>
+                      <ui:CursorPosition Position="Center">
+                        <ui:CursorPosition.OffsetX>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetX>
+                        <ui:CursorPosition.OffsetY>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:CursorPosition.OffsetY>
+                      </ui:CursorPosition>
+                    </ui:Click.CursorPosition>
+                    <ui:Click.Target>
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="8fed57ff5d816eda7b8c680a8f768f1c" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl id='__mbox-btn-*-inner' tag='SPAN' innertext='OK' /&gt;" WaitForReady="COMPLETE" />
+                    </ui:Click.Target>
+                  </ui:Click>
+                </If.Then>
+                <If.Else>
+                  <Throw Exception="[New BusinessRuleException(&quot;Hire Wizard does not confirm hire&quot;)]" sap:VirtualizedContainerService.HintSize="200,22.4" sap2010:WorkflowViewState.IdRef="Throw_25" />
+                </If.Else>
+              </If>
+            </Sequence>
+          </PickBranch>
+          <PickBranch sap:VirtualizedContainerService.HintSize="344.8,688.8" sap2010:WorkflowViewState.IdRef="PickBranch_11">
+            <PickBranch.Trigger>
+              <ui:UiElementExists Exists="{x:Null}" DisplayName="Element Exists 'Error'" sap:VirtualizedContainerService.HintSize="314.4,107.2" sap2010:WorkflowViewState.IdRef="UiElementExists_21">
+                <ui:UiElementExists.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="156e73286b909bcc7693ff50e2db20e1" Selector="&lt;html app='chrome.exe' title='SuccessFactors:ExtEnt PeopleProfile' /&gt;&lt;webctrl id='__mbox*-title-inner' tag='SPAN' aaname='*rror*' /&gt;" TimeoutMS="[Convert.ToInt32(in_Config(&quot;TimeoutLong&quot;).ToString)]" WaitForReady="COMPLETE" />
+                </ui:UiElementExists.Target>
+              </ui:UiElementExists>
+            </PickBranch.Trigger>
+            <Throw Exception="[new BusinessRuleException(&quot;Missing Information&quot;)]" sap:VirtualizedContainerService.HintSize="200,22.4" sap2010:WorkflowViewState.IdRef="Throw_24" />
+          </PickBranch>
+        </Pick>
+      </Sequence>
+      <Sequence sap2010:Annotation.AnnotationText="In this sequence step 3AO of the PDD is completed." DisplayName="Navigate to Homepage" sap:VirtualizedContainerService.HintSize="200,96.8" sap2010:WorkflowViewState.IdRef="Sequence_112">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="Chrome" DisplayName="Attach Browser 'chrome.exe  Home'" sap:VirtualizedContainerService.HintSize="414.4,332" sap2010:WorkflowViewState.IdRef="BrowserScope_4" InformativeScreenshot="116a2bd97de623da7e5e445fd90ee952" Selector="&lt;html app='chrome.exe' title='*' /&gt;">
+          <ui:BrowserScope.Body>
+            <ActivityAction x:TypeArguments="x:Object">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+              </ActivityAction.Argument>
+              <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="336.8,184.8" sap2010:WorkflowViewState.IdRef="Sequence_111">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To" sap:VirtualizedContainerService.HintSize="314.4,60" sap2010:WorkflowViewState.IdRef="NavigateTo_4" Url="[in_Config(&quot;URL_SuccessFactorsHomepage&quot;).ToString]" />
+              </Sequence>
+            </ActivityAction>
+          </ui:BrowserScope.Body>
+        </ui:BrowserScope>
+      </Sequence>
+    </Sequence>
+    <TryCatch sap2010:Annotation.AnnotationText="Description: In this sequence, if the hire has completed successfully, the getting started email is sent out to the team member and store" DisplayName="Send the Welcome Email to Team Member &amp; Store" sap:VirtualizedContainerService.HintSize="417.6,358.4" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+      <TryCatch.Variables>
+        <Variable x:TypeArguments="s:Exception" Name="SystemError" />
+        <Variable x:TypeArguments="ui:BusinessRuleException" Name="BusinessRuleException" />
+      </TryCatch.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <TryCatch.Try>
+        <Sequence DisplayName="Send Welcome Email" sap:VirtualizedContainerService.HintSize="949.6,2069.6" sap2010:WorkflowViewState.IdRef="Sequence_122">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="sd:DataTable" Name="dt_StartTime" />
+            <Variable x:TypeArguments="ui:GenericValue" Name="StartTime" />
+          </Sequence.Variables>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <If Condition="[in_TransactionItem(in_Config(&quot;Column_StartTime&quot;).ToString).ToString.IsNullOrEmpty = True]" DisplayName="Throw an error if there is no shift times" sap:VirtualizedContainerService.HintSize="927.2,209.6" sap2010:WorkflowViewState.IdRef="If_42">
+            <If.Then>
+              <Throw Exception="[new BusinessRuleException(&quot;No Shift Times&quot;)]" sap:VirtualizedContainerService.HintSize="200,22.4" sap2010:WorkflowViewState.IdRef="Throw_27" />
+            </If.Then>
+          </If>
+          <If Condition="[in_TransactionItem(in_Config(&quot;Column_Division&quot;).ToString).ToString.Contains(&quot;Woolworths Supermarkets&quot;)]" DisplayName="If Division Is Woolies Supermarkets" sap:VirtualizedContainerService.HintSize="927.2,1695.2" sap2010:WorkflowViewState.IdRef="If_37">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <If.Then>
+              <uga:GSuiteApplicationScope ApiKey="{x:Null}" KeyPath="{x:Null}" Password="{x:Null}" ServiceAccountEmail="{x:Null}" UserEmail="{x:Null}" AuthenticationType="OAuthClientID" CredentialID="[in_GoogleUsername]" CredentialSecret="[new System.Net.NetworkCredential(string.Empty, in_GooglePassword).Password]" DisplayName="GSuite Application Scope" HasDomainWideAccesss="False" sap:VirtualizedContainerService.HintSize="451.2,1545.6" sap2010:WorkflowViewState.IdRef="GSuiteApplicationScope_8" KeyType="JSON" Services="Gmail, Sheets" User="[in_Config(&quot;Welcome_Email_Sender&quot;).ToString]">
+                <uga:GSuiteApplicationScope.Body>
+                  <ActivityAction x:TypeArguments="ug:SimpleObjectContainer">
+                    <ActivityAction.Argument>
+                      <DelegateInArgument x:TypeArguments="ug:SimpleObjectContainer" Name="GSuiteScope" />
+                    </ActivityAction.Argument>
+                    <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="436.8,1459.2" sap2010:WorkflowViewState.IdRef="Sequence_130">
+                      <Sequence.Variables>
+                        <Variable x:TypeArguments="sd:DataTable" Name="dt_CostCentre" />
+                        <Variable x:TypeArguments="ui:GenericValue" Name="CostCentreEmail" />
+                        <Variable x:TypeArguments="x:String" Name="SupersEmail" />
+                        <Variable x:TypeArguments="x:String" Name="StoreEmail" />
+                        <Variable x:TypeArguments="x:String" Name="temp_CostCentre" />
+                      </Sequence.Variables>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <Assign sap:VirtualizedContainerService.HintSize="414.4,60" sap2010:WorkflowViewState.IdRef="Assign_35">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[temp_CostCentre]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">[in_TransactionItem(in_Config("Column_CostCentre").ToString).ToString.Substring(in_TransactionItem(in_Config("Column_CostCentre").ToString).ToString.Length-7,6).ToString.Replace("SA", "").TrimStart("0"c)]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <uga:ReadRange AuthScopesInvalid="False" DisplayName="Read Range" sap:VirtualizedContainerService.HintSize="414.4,83.2" sap2010:WorkflowViewState.IdRef="ReadRange_4" IncludeHeaders="True" Result="[dt_CostCentre]" SheetName="[in_Config(&quot;Data_CostCentreEmails_SheetName&quot;).ToString]" SpreadsheetId="[in_Config(&quot;Data_SourceReport_ID&quot;).ToString]">
+                        <uga:ReadRange.Range>
+                          <InArgument x:TypeArguments="x:String">
+                            <Literal x:TypeArguments="x:String" Value="" />
+                          </InArgument>
+                        </uga:ReadRange.Range>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </uga:ReadRange>
+                      <ui:LookupDataTable LookupColumnIndex="{x:Null}" LookupDataColumn="{x:Null}" RowIndex="{x:Null}" TargetColumnIndex="{x:Null}" TargetDataColumn="{x:Null}" DataTable="[dt_CostCentre]" DisplayName="Lookup Data Table" sap:VirtualizedContainerService.HintSize="414.4,22.4" sap2010:WorkflowViewState.IdRef="LookupDataTable_2" LookupColumnName="[in_Config(&quot;Column_CostCentreEmails_CostCentre&quot;).ToString]" LookupValue="[temp_CostCentre]" TargetColumnName="[in_Config(&quot;Column_CostCentreEmails_EmailAddress&quot;).ToString]">
+                        <ui:LookupDataTable.CellValue>
+                          <OutArgument x:TypeArguments="ui:GenericValue">[CostCentreEmail]</OutArgument>
+                        </ui:LookupDataTable.CellValue>
+                      </ui:LookupDataTable>
+                      <ui:ReadTextFile Content="[SupersEmail]" DisplayName="Read Text File" FileName="Data\Input\Woolies Welcome Email.html" sap:VirtualizedContainerService.HintSize="414.4,60" sap2010:WorkflowViewState.IdRef="ReadTextFile_1" />
+                      <ui:MultipleAssign DisplayName="Replace Email Fields" sap:VirtualizedContainerService.HintSize="414.4,192.8" sap2010:WorkflowViewState.IdRef="MultipleAssign_2">
+                        <ui:MultipleAssign.AssignOperations>
+                          <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_4">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[SupersEmail]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">[SupersEmail.Replace("[[CANDIDATE_FIRST_NAME]]", in_TransactionItem(in_Config("Column_FirstName").ToString).ToString)]</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_5">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[SupersEmail]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">[SupersEmail.Replace("[[JOB_OFFER_DETAIL_CUSTOM16]]", in_TransactionItem(in_Config("Column_FirstDayAtWork").ToString).ToString)]</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_6">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[SupersEmail]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">[SupersEmail.Replace("{USER_INSERT_COMPANY_START_TIME}", in_TransactionItem(in_Config("Column_StartTime").ToString).ToString)]</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_11">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[SupersEmail]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">[SupersEmail.Replace("[[HIRING_MGR_FULL_NAME]]", in_TransactionItem(in_Config("Column_HiringManagerName").ToString).ToString)]</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                          </scg:List>
+                        </ui:MultipleAssign.AssignOperations>
+                      </ui:MultipleAssign>
+                      <uga:SendEmail Cc="{x:Null}" AttachmentList="[Directory.GetFiles(&quot;Data\Input\Woolies Attachments&quot;)]" AuthScopesInvalid="False" Bcc="[{&quot;jkhoo@woolworths.com.au&quot;}]" Body="[SupersEmail]" DisplayName="Send Welcome Email to Team Member" sap:VirtualizedContainerService.HintSize="414.4,288" sap2010:WorkflowViewState.IdRef="SendEmail_1" IsDraft="False" IsHTML="True" Subject="[&quot;Welcome on board, &quot; +  in_TransactionItem(in_Config(&quot;Column_FirstName&quot;).ToString).ToString]" To="[{in_TransactionItem(In_Config(&quot;Column_EmailAddress&quot;).ToString).ToString}]">
+                        <uga:SendEmail.Attachments>
+                          <scg:List x:TypeArguments="InArgument(x:String)" Capacity="0" />
+                        </uga:SendEmail.Attachments>
+                      </uga:SendEmail>
+                      <ui:ReadTextFile Content="[StoreEmail]" DisplayName="Read Text File" FileName="Data\Input\Best First Day.html" sap:VirtualizedContainerService.HintSize="414.4,60" sap2010:WorkflowViewState.IdRef="ReadTextFile_2" />
+                      <uga:SendEmail Cc="{x:Null}" AttachmentList="[Directory.GetFiles(&quot;Data\Input\Woolies Attachments&quot;)]" AuthScopesInvalid="False" Bcc="[{&quot;jkhoo@woolworths.com.au&quot;}]" Body="[StoreEmail + &quot;&lt;/br&gt;&quot; + SupersEmail]" DisplayName="Send Welcome Email to Store Email" sap:VirtualizedContainerService.HintSize="414.4,288" sap2010:WorkflowViewState.IdRef="SendEmail_2" IsDraft="False" IsHTML="True" Subject="[&quot;Welcome on board, &quot; +  in_TransactionItem(in_Config(&quot;Column_FirstName&quot;).ToString).ToString]" To="[{CostCentreEmail}]">
+                        <uga:SendEmail.Attachments>
+                          <scg:List x:TypeArguments="InArgument(x:String)" Capacity="0" />
+                        </uga:SendEmail.Attachments>
+                      </uga:SendEmail>
+                    </Sequence>
+                  </ActivityAction>
+                </uga:GSuiteApplicationScope.Body>
+              </uga:GSuiteApplicationScope>
+            </If.Then>
+            <If.Else>
+              <uga:GSuiteApplicationScope ApiKey="{x:Null}" KeyPath="{x:Null}" Password="{x:Null}" ServiceAccountEmail="{x:Null}" UserEmail="{x:Null}" AuthenticationType="OAuthClientID" CredentialID="[in_GoogleUsername]" CredentialSecret="[new System.Net.NetworkCredential(string.Empty, in_GooglePassword).Password]" DisplayName="GSuite Application Scope" HasDomainWideAccesss="False" sap:VirtualizedContainerService.HintSize="451.2,863.2" sap2010:WorkflowViewState.IdRef="GSuiteApplicationScope_9" KeyType="JSON" Services="Gmail, Sheets" User="[in_Config(&quot;Welcome_Email_Sender&quot;).ToString]">
+                <uga:GSuiteApplicationScope.Body>
+                  <ActivityAction x:TypeArguments="ug:SimpleObjectContainer">
+                    <ActivityAction.Argument>
+                      <DelegateInArgument x:TypeArguments="ug:SimpleObjectContainer" Name="GSuiteScope" />
+                    </ActivityAction.Argument>
+                    <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="436.8,776.8" sap2010:WorkflowViewState.IdRef="Sequence_131">
+                      <Sequence.Variables>
+                        <Variable x:TypeArguments="x:String" Name="BigWWelcomeEmail" />
+                      </Sequence.Variables>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <ui:ReadTextFile Content="[BigWWelcomeEmail]" DisplayName="Read Text File" FileName="Data\Input\Big W Welcome Email.html" sap:VirtualizedContainerService.HintSize="414.4,60" sap2010:WorkflowViewState.IdRef="ReadTextFile_3" />
+                      <ui:MultipleAssign DisplayName="Replace Email Fields" sap:VirtualizedContainerService.HintSize="414.4,224" sap2010:WorkflowViewState.IdRef="MultipleAssign_3">
+                        <ui:MultipleAssign.AssignOperations>
+                          <scg:List x:TypeArguments="ui:AssignOperation" Capacity="8">
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_7">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[BigWWelcomeEmail]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">[BigWWelcomeEmail.Replace("[[CANDIDATE_FIRST_NAME]]", in_TransactionItem(in_Config("Column_FirstName").ToString).ToString)]</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_8">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[BigWWelcomeEmail]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">[BigWWelcomeEmail.Replace("[[JOB_OFFER_DETAIL_CUSTOM16]]", in_TransactionItem(in_Config("Column_FirstDayAtWork").ToString).ToString)]</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_9">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[BigWWelcomeEmail]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String" xml:space="preserve">[BigWWelcomeEmail.Replace("{USER_INSERT_COMPANY_START_TIME}",  in_TransactionItem(in_Config("Column_StartTime").ToString).ToString)]</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_10">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[BigWWelcomeEmail]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">[BigWWelcomeEmail.Replace("[[CANDIDATE_ID]]", in_TransactionItem(in_Config("Column_CandidateID").ToString).ToString)]</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_12">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[BigWWelcomeEmail]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">[BigWWelcomeEmail.Replace("[[HIRING_MGR_FULL_NAME]]", in_TransactionItem(in_Config("Column_HiringManagerName").ToString).ToString)]</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                          </scg:List>
+                        </ui:MultipleAssign.AssignOperations>
+                      </ui:MultipleAssign>
+                      <uga:SendEmail AttachmentList="[Directory.GetFiles(&quot;Data\Input\Big W Attachments&quot;)]" AuthScopesInvalid="False" Bcc="[{&quot;jkhoo@woolworths.com.au&quot;}]" Body="[BigWWelcomeEmail]" Cc="[{in_TransactionItem(in_Config(&quot;Column_StoreContact&quot;).ToString).ToString}]" DisplayName="Send Mail Message" sap:VirtualizedContainerService.HintSize="414.4,288" sap2010:WorkflowViewState.IdRef="SendEmail_3" IsDraft="False" IsHTML="True" Subject="[&quot;Welcome to BIG W, &quot; +  in_TransactionItem(in_Config(&quot;Column_FirstName&quot;).ToString).ToString]" To="[{in_TransactionItem(In_Config(&quot;Column_EmailAddress&quot;).ToString).ToString}]">
+                        <uga:SendEmail.Attachments>
+                          <scg:List x:TypeArguments="InArgument(x:String)" Capacity="0" />
+                        </uga:SendEmail.Attachments>
+                      </uga:SendEmail>
+                    </Sequence>
+                  </ActivityAction>
+                </uga:GSuiteApplicationScope.Body>
+              </uga:GSuiteApplicationScope>
+            </If.Else>
+          </If>
+        </Sequence>
+      </TryCatch.Try>
+      <TryCatch.Catches>
+        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="403.2,22.4" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ActivityAction x:TypeArguments="s:Exception">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+            </ActivityAction.Argument>
+            <Assign sap:VirtualizedContainerService.HintSize="243.2,60" sap2010:WorkflowViewState.IdRef="Assign_33">
+              <Assign.To>
+                <OutArgument x:TypeArguments="s:Exception">[SystemError]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="s:Exception">[exception]</InArgument>
+              </Assign.Value>
+            </Assign>
+          </ActivityAction>
+        </Catch>
+        <Catch x:TypeArguments="ui:BusinessRuleException" sap:VirtualizedContainerService.HintSize="403.2,22.4" sap2010:WorkflowViewState.IdRef="Catch`1_2">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ActivityAction x:TypeArguments="ui:BusinessRuleException">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="ui:BusinessRuleException" Name="exception" />
+            </ActivityAction.Argument>
+            <Assign sap:VirtualizedContainerService.HintSize="243.2,60" sap2010:WorkflowViewState.IdRef="Assign_34">
+              <Assign.To>
+                <OutArgument x:TypeArguments="ui:BusinessRuleException">[BusinessRuleException]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="ui:BusinessRuleException">[exception]</InArgument>
+              </Assign.Value>
+            </Assign>
+          </ActivityAction>
+        </Catch>
+      </TryCatch.Catches>
+      <TryCatch.Finally>
+        <Sequence sap:VirtualizedContainerService.HintSize="222.4,240" sap2010:WorkflowViewState.IdRef="Sequence_136">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Sequence DisplayName="Update Data Sheet - Welcome Email" sap:VirtualizedContainerService.HintSize="200,52.8" sap2010:WorkflowViewState.IdRef="Sequence_135">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:Int32" Name="tempRowNum" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <uga:GSuiteApplicationScope ApiKey="{x:Null}" CredentialID="{x:Null}" CredentialSecret="{x:Null}" Password="{x:Null}" ServiceAccountEmail="{x:Null}" UserEmail="{x:Null}" AuthenticationType="ServiceAccountKey" DisplayName="GSuite Application Scope" HasDomainWideAccesss="False" sap:VirtualizedContainerService.HintSize="1052,807.2" sap2010:WorkflowViewState.IdRef="GSuiteApplicationScope_10" KeyPath="Data\Input\project-id-1338237216386383204-7370c5750676.json" KeyType="JSON" Services="Sheets">
+              <uga:GSuiteApplicationScope.Body>
+                <ActivityAction x:TypeArguments="ug:SimpleObjectContainer">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="ug:SimpleObjectContainer" Name="GSuiteScope" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="1037.6,720.8" sap2010:WorkflowViewState.IdRef="Sequence_134">
+                    <Sequence.Variables>
+                      <Variable x:TypeArguments="sd:DataTable" Name="tempHireDT" />
+                    </Sequence.Variables>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <uga:ReadRange AuthScopesInvalid="False" DisplayName="Read Range" sap:VirtualizedContainerService.HintSize="1015.2,83.2" sap2010:WorkflowViewState.IdRef="ReadRange_5" IncludeHeaders="True" Result="[tempHireDT]" SheetName="[in_Config(&quot;Data_SourceReport_SheetName&quot;).ToString]" SpreadsheetId="[in_Config(&quot;Data_SourceReport_ID&quot;).ToString]">
+                      <uga:ReadRange.Range>
+                        <InArgument x:TypeArguments="x:String">
+                          <Literal x:TypeArguments="x:String" Value="" />
+                        </InArgument>
+                      </uga:ReadRange.Range>
+                    </uga:ReadRange>
+                    <ui:LookupDataTable CellValue="{x:Null}" LookupColumnIndex="{x:Null}" LookupDataColumn="{x:Null}" TargetColumnIndex="{x:Null}" TargetColumnName="{x:Null}" TargetDataColumn="{x:Null}" DataTable="[tempHireDT]" DisplayName="Lookup Data Table" sap:VirtualizedContainerService.HintSize="1015.2,22.4" sap2010:WorkflowViewState.IdRef="LookupDataTable_3" LookupColumnName="[in_Config(&quot;Column_CandidateID&quot;).ToString]" LookupValue="[in_TransactionItem(in_Config(&quot;Column_CandidateID&quot;).ToString).ToString]" RowIndex="[tempRowNum]" />
+                    <If Condition="[BusinessRuleException Is Nothing and SystemError Is Nothing]" sap:VirtualizedContainerService.HintSize="1015.2,410.4" sap2010:WorkflowViewState.IdRef="If_41">
+                      <If.Then>
+                        <Sequence sap:VirtualizedContainerService.HintSize="336.8,236" sap2010:WorkflowViewState.IdRef="Sequence_133">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <uga:WriteCell AuthScopesInvalid="False" Cell="[String.Concat(in_Config(&quot;Column_EmailSentStatus&quot;).ToString, (tempRowNum+2).ToString)]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="314.4,111.2" sap2010:WorkflowViewState.IdRef="WriteCell_2" IsInsideBatchUpdateScope="False" SheetName="[in_Config(&quot;Data_SourceReport_SheetName&quot;).ToString]" SpreadsheetId="[in_Config(&quot;Data_SourceReport_ID&quot;).ToString]" Value="Emails Sent" />
+                        </Sequence>
+                      </If.Then>
+                      <If.Else>
+                        <If Condition="[BusinessRuleException IsNot Nothing]" sap:VirtualizedContainerService.HintSize="653.6,260.8" sap2010:WorkflowViewState.IdRef="If_40">
+                          <If.Then>
+                            <uga:WriteCell AuthScopesInvalid="False" Cell="[String.Concat(in_Config(&quot;Column_EmailSentStatus&quot;).ToString, (tempRowNum+2).ToString)]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="314.4,111.2" sap2010:WorkflowViewState.IdRef="WriteCell_3" IsInsideBatchUpdateScope="False" SheetName="[in_Config(&quot;Data_SourceReport_SheetName&quot;).ToString]" SpreadsheetId="[in_Config(&quot;Data_SourceReport_ID&quot;).ToString]" Value="[BusinessRuleException.Message]" />
+                          </If.Then>
+                          <If.Else>
+                            <uga:WriteCell AuthScopesInvalid="False" Cell="[String.Concat(in_Config(&quot;Column_EmailSentStatus&quot;).ToString, (tempRowNum+2).ToString)]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="314.4,111.2" sap2010:WorkflowViewState.IdRef="WriteCell_5" IsInsideBatchUpdateScope="False" SheetName="[in_Config(&quot;Data_SourceReport_SheetName&quot;).ToString]" SpreadsheetId="[in_Config(&quot;Data_SourceReport_ID&quot;).ToString]" Value="[SystemError.Message]" />
+                          </If.Else>
+                        </If>
+                      </If.Else>
+                    </If>
+                  </Sequence>
+                </ActivityAction>
+              </uga:GSuiteApplicationScope.Body>
+            </uga:GSuiteApplicationScope>
+          </Sequence>
+          <s1:Update_Workload_Sheet DisplayName="Update Workload Sheet" sap:VirtualizedContainerService.HintSize="200,22.4" sap2010:WorkflowViewState.IdRef="Update_Workload_Sheet_1" in_BusinessProcessName="Send Welcome Email" in_BusinessRuleException="[BusinessRuleException]" in_MaxRetryNumber="0" in_RetryNumber="0" in_ServiceAccountJSON="Data\Input\project-id-1338237216386383204-7370c5750676.json" in_StartTime="[DateTime.Now.ToString(&quot;yyyy-MM-ddTHH:mm:ss&quot;)]" in_SystemError="[SystemError]" />
+        </Sequence>
+      </TryCatch.Finally>
+    </TryCatch>
+  </Sequence>
+</Activity>
